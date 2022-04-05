@@ -9,7 +9,8 @@ import java.util.concurrent.TimeUnit
 class RetrofitInstance {
 
     companion object {
-
+        private var baseUrl = "https://jsonplaceholder.typicode.com/"
+        
         private val retrofit by lazy {
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BODY
@@ -21,7 +22,7 @@ class RetrofitInstance {
                 .build()
 
             Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
