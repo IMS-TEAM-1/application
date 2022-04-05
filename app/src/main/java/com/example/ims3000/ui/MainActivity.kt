@@ -1,7 +1,8 @@
-package com.example.ims3000
+package com.example.ims3000.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.ims3000.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
