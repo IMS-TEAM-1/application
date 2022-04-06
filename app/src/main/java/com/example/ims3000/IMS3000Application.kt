@@ -4,6 +4,4 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class IMS3000Application : Application() {
-
-}
+class IMS3000Application : Application()
