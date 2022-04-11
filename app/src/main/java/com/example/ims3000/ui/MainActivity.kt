@@ -25,16 +25,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_main)
+/*        binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
         binding.apiCallButtonTest.setOnClickListener {
             mockApiCall()
         }
-
+*/
     }
-
+/*
     private fun mockApiCall() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
@@ -52,4 +53,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+*/
 }
