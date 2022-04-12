@@ -1,6 +1,7 @@
 package com.example.ims3000.di
 
 import com.example.ims3000.BuildConfig
+import com.example.ims3000.api.ApiInterface
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -43,6 +44,12 @@ object NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit): ApiInterface {
+        return retrofit.create(ApiInterface::class.java)
     }
 
 }
