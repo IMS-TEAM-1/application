@@ -25,7 +25,7 @@ object NetworkModule {
             this.addInterceptor(Interceptor { chain ->
                 val original = chain.request()
                 val request = original.newBuilder()
-                    .header("Authorization", "token")
+                    .header("Authorization", "token") // TODO
                     .method(original.method, original.body)
                     .build()
                 chain.proceed(request)
@@ -40,7 +40,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("Base url")
+            .baseUrl("Base url") // TODO
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
