@@ -8,6 +8,6 @@ import retrofit2.http.Path
 interface ApiInterface {
     // TODO
     @GET("todos/{userId}")
-    suspend fun getTodo(@Path("userId") userId: Int): Response<mockApiData>
+    suspend fun getTodo(@Path("userId") userId: Int): Response<ApiResponse>
 
 }
