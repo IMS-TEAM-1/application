@@ -10,7 +10,7 @@
 
 
     <fragment
-        android:id="@+id/home"
+        android:id="@+id/fragment_home"
         class="com.example.ims3000.ui.fragments.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

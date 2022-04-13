@@ -40,7 +40,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("Base url") // TODO
+            .baseUrl("https://jsonplaceholder.typicode.com/") // TODO
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
