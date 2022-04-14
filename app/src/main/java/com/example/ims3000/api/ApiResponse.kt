@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class ApiResponse (
     // TODO
-    @SerializedName("user") val data: MockApiResponse
+    @SerializedName("data") val data: MockApiResponse
 )

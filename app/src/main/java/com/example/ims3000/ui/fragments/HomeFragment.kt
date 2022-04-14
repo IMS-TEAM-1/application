@@ -11,7 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.ims3000.R
+import com.example.ims3000.api.ApiResponse
 import com.example.ims3000.api.RetrofitInstance
+import com.example.ims3000.api.util.Resource
 import com.example.ims3000.data.entities.mockApiData
 import com.example.ims3000.databinding.FragmentHomeBinding
 import com.example.ims3000.ui.viewmodels.HomeViewModel
@@ -19,6 +21,7 @@ import com.example.ims3000.ui.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -44,10 +47,27 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.apiCallButtonTest.setOnClickListener {
             mockApiCall()
         }
+
+        viewModel.getText.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> response.data?.let { apiResponse ->
+                    binding.apidatatext.text = apiResponse?.data.toString()
+                }
+            }
+
+        }
     }
 
     private fun mockApiCall() {
-        lifecycleScope.launch(Dispatchers.IO) {
+        try {
+            viewModel.getText()
+//            val baseText = binding.apidatatext.text.toString()
+            //binding.
+
+        } catch (e: Exception) {
+        }
+
+/*        lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val response = RetrofitInstance.api.getTodo(1)
                 if (response.isSuccessful) {
@@ -61,7 +81,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             } catch (e: Exception) {
                 Log.d("debug", "error")
             }
-        }
+        }*/
     }
+
+//    private fun initRe
 
 }
