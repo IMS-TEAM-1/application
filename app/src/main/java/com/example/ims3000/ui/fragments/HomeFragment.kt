@@ -51,7 +51,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.getText.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> response.data?.let { apiResponse ->
-                    binding.apidatatext.text = apiResponse?.data.toString()
+                    binding.apidatatext.text = apiResponse?.title.toString()
                 }
             }
 
