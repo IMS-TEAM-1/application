@@ -8,15 +8,20 @@ import android.widget.Button
 import android.widget.EditText
 import com.example.ims3000.R
 import com.example.ims3000.ui.sampledata.NavigationMenuActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /*
         supportActionBar?.hide()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
+        )
+        */
         setContentView(R.layout.activity_login)
 
         findViewById<Button>(R.id.login_button).setOnClickListener{

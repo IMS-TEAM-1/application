@@ -16,20 +16,16 @@ class NavigationMenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_navigation_menu)
         val binding = ActivityNavigationMenuBinding.inflate(layoutInflater)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(binding.root)
 
-
         val mowerStatusFragment = MowerStatusFragment()
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-
+        //start with this fragment
         makeCurrentFragment(mowerStatusFragment)
 
-        bottomNavigationView.setOnItemSelectedListener {
+        binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId){
                 R.id.navigation_status -> makeCurrentFragment(mowerStatusFragment)
-
 
             }
             true

@@ -14,7 +14,8 @@
         android:theme="@style/Theme.IMS3000">
         <activity
             android:name=".ui.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.IMS3000.NoActionBar" />
         <activity
             android:name=".ui.sampledata.NavigationMenuActivity"
             android:exported="false" />
