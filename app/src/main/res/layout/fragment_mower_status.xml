@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="#191B15"
-    tools:context=".ui.sampledata.MowerStatusFragment">
+    tools:context=".ui.fragments.MowerStatusFragment">
 
     <TextView
         android:id="@+id/textView5"
