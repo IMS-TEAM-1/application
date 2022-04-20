@@ -63,8 +63,6 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         try {
             viewModel.getText()
             val baseText = binding.apidatatext.text.toString()
-            binding
-
         } catch (e: Exception) { }
     }
 }

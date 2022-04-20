@@ -12,6 +12,8 @@ import com.example.ims3000.api.util.Resource
 import com.example.ims3000.databinding.FragmentMowerStatusBinding
 import com.example.ims3000.ui.viewmodels.MowerStatusViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ApplicationContext
+import java.lang.Exception
 
 @AndroidEntryPoint
 class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
@@ -35,17 +37,25 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
         viewModel = ViewModelProvider(requireActivity())?.get(MowerStatusViewModel::class.java)
 
         binding.startPauseButton.setOnClickListener {
-
+            mockApiCall()
         }
 
         viewModel.getText.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> response.data?.let { apiResponse ->
                     // make toast
+                    Toast.makeText(context, apiResponse?.title?.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
 
         }
 
+    }
+
+    private fun mockApiCall() {
+        try {
+            viewModel.getText()
+
+        } catch (e: Exception) { }
     }
 }
