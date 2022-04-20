@@ -14,10 +14,10 @@ class NavigationMenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation_menu)
-        val bindning = ActivityNavigationMenuBinding.inflate(layoutInflater)
+        val binding = ActivityNavigationMenuBinding.inflate(layoutInflater)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(bindning.root)
+        setContentView(binding.root)
 
 
         val mowerStatusFragment = MowerStatusFragment()
@@ -26,7 +26,7 @@ class NavigationMenuActivity : AppCompatActivity() {
 
         makeCurrentFragment(mowerStatusFragment)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener {
+        bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId){
                 R.id.navigation_status -> makeCurrentFragment(mowerStatusFragment)
 

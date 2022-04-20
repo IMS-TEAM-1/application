@@ -12,25 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IMS3000">
         <activity
-            android:name=".ui.sampledata.MainMenuActivity"
+            android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MowerStatusActivity"
+            android:name=".ui.sampledata.NavigationMenuActivity"
             android:exported="false" />
         <activity
             android:name=".ui.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
-        <activity
-            android:name=".ui.loginActivity"
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.IMS3000.NoActionBar" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -1,11 +1,13 @@
 package com.example.ims3000.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import com.example.ims3000.R
+import com.example.ims3000.ui.sampledata.NavigationMenuActivity
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +23,11 @@ class LoginActivity : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.email_inputText)
             val password = findViewById<EditText>(R.id.password_inputText)
             val errorsExists = validate(email, password)
-         }
+            val intent = Intent(this, NavigationMenuActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
 
