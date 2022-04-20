@@ -12,7 +12,6 @@ import com.example.ims3000.R
 import com.example.ims3000.api.RetrofitInstance
 import com.example.ims3000.data.entities.mockApiData
 import com.example.ims3000.databinding.ActivityMainBinding
-import com.example.ims3000.databinding.ActivityNavigationMenuBinding
 import com.example.ims3000.ui.sampledata.MowerStatusFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -30,8 +29,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //val binding = ActivityMainBinding.inflate(layoutInflater)
-        //setContentView(binding.root)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.hide()
         window.setFlags(
@@ -43,15 +42,14 @@ class MainActivity : AppCompatActivity() {
 
         //start with this fragment
         makeCurrentFragment(mowerStatusFragment)
-         /*
-        binding.setOnItemSelectedListener {
+
+        binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId){
                 R.id.navigation_status -> makeCurrentFragment(mowerStatusFragment)
-
+                // More views
             }
             true
         }
-        */
     }
 
     private fun makeCurrentFragment(fragment: Fragment) =

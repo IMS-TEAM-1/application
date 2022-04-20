@@ -4,51 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity"
-    >
+    tools:context=".ui.MainActivity">
 
-
-
-    <fragment
-        android:id="@+id/fragment_home"
-        class="com.example.ims3000.ui.fragments.HomeFragment"
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:background="#676666"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-<!--
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:background="#E6E6E6"
+        app:itemIconSize="40dp"
+        app:itemIconTint="@color/navigation_icons_color"
+        app:itemRippleColor="#F25402"
+        app:itemTextColor="@color/navigation_icons_color"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/apiCallButtonTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Click to make API call"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp"/>
-
-    <TextView
-        android:id="@+id/apidatatext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This text is from api: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="200dp" />
--->
-
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
