@@ -12,6 +12,7 @@ import com.example.ims3000.R
 import com.example.ims3000.api.RetrofitInstance
 import com.example.ims3000.data.entities.mockApiData
 import com.example.ims3000.databinding.ActivityMainBinding
+import com.example.ims3000.ui.fragments.MapFragment
 import com.example.ims3000.ui.sampledata.MowerStatusFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,7 @@ import javax.inject.Inject
 
 private lateinit var binding: ActivityMainBinding
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     @Inject
@@ -39,14 +40,14 @@ class MainActivity : AppCompatActivity() {
         )
 
         val mowerStatusFragment = MowerStatusFragment()
-
+        val mapFragment = MapFragment()
         //start with this fragment
         makeCurrentFragment(mowerStatusFragment)
 
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId){
                 R.id.navigation_status -> makeCurrentFragment(mowerStatusFragment)
-                // More views
+                R.id.navigation_map -> makeCurrentFragment(mapFragment)
             }
             true
         }

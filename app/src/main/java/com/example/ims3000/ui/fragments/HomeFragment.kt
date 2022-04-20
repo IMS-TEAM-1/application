@@ -61,29 +61,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun mockApiCall() {
         try {
             viewModel.getText()
-//            val baseText = binding.apidatatext.text.toString()
-            //binding.
+            val baseText = binding.apidatatext.text.toString()
+            binding
 
-        } catch (e: Exception) {
-        }
-
-/*        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val response = RetrofitInstance.api.getTodo(1)
-                if (response.isSuccessful) {
-                    val todo = response.body() as mockApiData
-                    val baseText = binding.apidatatext.text.toString()
-                    val apiText = todo.title
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        binding.apidatatext.text = baseText + " " + apiText
-                    }
-                }
-            } catch (e: Exception) {
-                Log.d("debug", "error")
-            }
-        }*/
+        } catch (e: Exception) { }
     }
-
-//    private fun initRe
-
 }
