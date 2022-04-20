@@ -7,7 +7,6 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import com.example.ims3000.R
-import com.example.ims3000.ui.sampledata.NavigationMenuActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -15,20 +14,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*
+
         supportActionBar?.hide()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        */
+
         setContentView(R.layout.activity_login)
 
         findViewById<Button>(R.id.login_button).setOnClickListener{
             val email = findViewById<EditText>(R.id.email_inputText)
             val password = findViewById<EditText>(R.id.password_inputText)
             val errorsExists = validate(email, password)
-            val intent = Intent(this, NavigationMenuActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

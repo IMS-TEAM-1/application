@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 private lateinit var binding: ActivityMainBinding
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     @Inject
@@ -30,15 +30,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-/*
+        //val binding = ActivityMainBinding.inflate(layoutInflater)
+        //setContentView(binding.root)
+
         supportActionBar?.hide()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-*/
-        setContentView(binding.root)
 
         val mowerStatusFragment = MowerStatusFragment()
 
