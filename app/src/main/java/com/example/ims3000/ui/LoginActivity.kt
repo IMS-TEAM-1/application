@@ -23,6 +23,10 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+        /*
         findViewById<Button>(R.id.login_button).setOnClickListener{
             val email = findViewById<EditText>(R.id.email_inputText)
             val password = findViewById<EditText>(R.id.password_inputText)
@@ -31,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        */
 
     }
 
