@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.RequestManager
 import com.example.ims3000.R
 import com.example.ims3000.databinding.ActivityMainBinding
+import com.example.ims3000.ui.fragments.ControllerFragment
 import com.example.ims3000.ui.fragments.MapFragment
 import com.example.ims3000.ui.fragments.MowerStatusFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         val mowerStatusFragment = MowerStatusFragment()
         val mapFragment = MapFragment()
+        val controllerFragment = ControllerFragment()
+
         //start with this fragment
         makeCurrentFragment(mowerStatusFragment)
 
@@ -41,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId){
                 R.id.navigation_status -> makeCurrentFragment(mowerStatusFragment)
                 R.id.navigation_map -> makeCurrentFragment(mapFragment)
+                R.id.navigation_control -> makeCurrentFragment(controllerFragment)
             }
             true
         }
