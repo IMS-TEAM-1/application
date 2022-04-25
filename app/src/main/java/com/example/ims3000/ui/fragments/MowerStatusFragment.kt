@@ -29,7 +29,6 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
     ): View? {
         _binding = FragmentMowerStatusBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,18 +37,16 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
 
         binding.startPauseButton.setOnClickListener {
             mockApiCall()
-        }
-
-        viewModel.getText.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Success -> response.data?.let { apiResponse ->
-                    // make toast
-                    Toast.makeText(context, apiResponse?.title?.toString(), Toast.LENGTH_SHORT).show()
+            viewModel.getText.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Success -> response.data?.let { apiResponse ->
+                        // make toast
+                        Toast.makeText(context, apiResponse?.title?.toString(), Toast.LENGTH_SHORT).show()
+                    }
                 }
+
             }
-
         }
-
     }
 
     private fun mockApiCall() {
