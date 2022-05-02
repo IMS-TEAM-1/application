@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         makeCurrentFragment(mowerStatusFragment)
 
         binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId){
+            when (it.itemId) {
                 R.id.navigation_status -> makeCurrentFragment(mowerStatusFragment)
                 R.id.navigation_map -> makeCurrentFragment(mapFragment)
                 R.id.navigation_control -> makeCurrentFragment(controllerFragment)
