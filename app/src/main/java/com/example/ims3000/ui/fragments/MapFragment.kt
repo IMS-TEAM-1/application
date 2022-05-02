@@ -34,24 +34,5 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())?.get(MapViewModel::class.java)
 
-        binding.apiCallButtonTest.setOnClickListener {
-            mockApiCall()
-        }
-
-        viewModel.getText.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Success -> response.data?.let { apiResponse ->
-                    binding.apidatatext.text = apiResponse?.title.toString()
-                }
-            }
-
-        }
-    }
-
-    private fun mockApiCall() {
-        try {
-            viewModel.getText()
-            val baseText = binding.apidatatext.text.toString()
-        } catch (e: Exception) { }
     }
 }
