@@ -26,7 +26,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+/*
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+*/
+/*
+        setContentView(R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+ */
         supportActionBar?.hide()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -41,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         makeCurrentFragment(mowerStatusFragment)
 
         binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId){
+            when (it.itemId) {
                 R.id.navigation_status -> makeCurrentFragment(mowerStatusFragment)
                 R.id.navigation_map -> makeCurrentFragment(mapFragment)
                 R.id.navigation_control -> makeCurrentFragment(controllerFragment)

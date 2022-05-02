@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:shape="rectangle"
     android:padding="10dp">
 
-    <solid android:color="#C6612C" />
+    <solid android:color="#FFFFFF" />
     <corners
         android:bottomRightRadius="15dp"
-        app:cardElevation="2dp"
         android:bottomLeftRadius="15dp"
         android:topLeftRadius="15dp"
         android:topRightRadius="15dp" />
