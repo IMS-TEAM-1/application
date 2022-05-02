@@ -21,6 +21,11 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
     private val binding get() = _binding!!
     lateinit var viewModel: MowerStatusViewModel
 
+    companion object {
+        const val mowerDefaultName = "Mower's Name"
+        const val mowerId = 4
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +38,17 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())?.get(MowerStatusViewModel::class.java)
+
+        if (binding.mowerName.text == mowerDefaultName) {
+            fetchMowerFromViewModelById(mowerId)
+            viewModel.getMowerById.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Resource.Success -> response.data?.let { result ->
+                        binding.mowerName.text = result.name
+                    }
+                }
+            }
+        }
 
         binding.startPauseButton.setOnClickListener {
             fetchAllUsersFromViewModel()
@@ -53,4 +69,17 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
 
         } catch (e: Exception) { }
     }
+/*
+    private fun fetchMoverNameFromViewModel() {
+        try {
+            viewModel.getAllMowers()
+        } catch (e: Exception) {}
+    }
+*/
+    private fun fetchMowerFromViewModelById(id: Int) {
+        try {
+            viewModel.getMowerById(id)
+        } catch (e: Exception) {}
+    }
+
 }

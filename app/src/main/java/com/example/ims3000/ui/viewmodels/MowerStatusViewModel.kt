@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.ims3000.api.ApiRepository
 import com.example.ims3000.api.ApiResponse
 import com.example.ims3000.api.util.Resource
+import com.example.ims3000.data.remote.Mower
 import com.example.ims3000.data.remote.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,6 @@ import javax.inject.Inject
 class MowerStatusViewModel @Inject constructor(private val apiRepository: ApiRepository): ViewModel() {
 
     val getAllUsers: MutableLiveData<Resource<List<User>>> = MutableLiveData()
-
     fun getAllUsers() = viewModelScope.launch(Dispatchers.IO) {
         getAllUsers.postValue(Resource.Loading())
         try {
@@ -27,4 +27,27 @@ class MowerStatusViewModel @Inject constructor(private val apiRepository: ApiRep
             getAllUsers.postValue(Resource.Error(e.message.toString()))
         }
     }
+
+    val getAllMowers: MutableLiveData<Resource<List<Mower>>> = MutableLiveData()
+    fun getAllMowers() = viewModelScope.launch(Dispatchers.IO) {
+        getAllMowers.postValue(Resource.Loading())
+        try {
+            val apiResult = apiRepository.getAllMowers()
+            getAllMowers.postValue(apiResult)
+        } catch (e: Exception) {
+            getAllMowers.postValue(Resource.Error(e.message.toString()))
+        }
+    }
+
+    val getMowerById: MutableLiveData<Resource<Mower>> = MutableLiveData()
+    fun getMowerById(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+        getMowerById.postValue(Resource.Loading())
+        try {
+            val apiResult = apiRepository.getMowerById(id)
+            getMowerById.postValue(apiResult)
+        } catch (e: Exception) {
+            getMowerById.postValue(Resource.Error(e.message.toString()))
+        }
+    }
+
 }

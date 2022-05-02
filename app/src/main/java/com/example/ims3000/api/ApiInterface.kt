@@ -5,6 +5,7 @@ import com.example.ims3000.data.remote.Mower
 import com.example.ims3000.data.remote.User
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiInterface {
@@ -17,5 +18,8 @@ interface ApiInterface {
 
     @GET("mowers")
     suspend fun getAllMowers(): Response<List<Mower>>
+
+    @GET("mowers/{id}")
+    suspend fun getMowerById(@Path("id") id: Int): Response<Mower>
 
 }
