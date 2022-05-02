@@ -18,6 +18,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    const val baseUrl = "http://13.49.61.28:8080/"
+
     @Provides
     @Singleton
     fun provideHttpClient(): OkHttpClient {
@@ -40,7 +42,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/") // TODO
+            .baseUrl(baseUrl) // TODO
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()

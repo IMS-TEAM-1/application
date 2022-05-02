@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.ims3000.api.ApiRepository
 import com.example.ims3000.api.ApiResponse
 import com.example.ims3000.api.util.Resource
+import com.example.ims3000.data.remote.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,15 +16,15 @@ import javax.inject.Inject
 @HiltViewModel
 class MowerStatusViewModel @Inject constructor(private val apiRepository: ApiRepository): ViewModel() {
 
-    val getText: MutableLiveData<Resource<ApiResponse>> = MutableLiveData()
+    val getAllUsers: MutableLiveData<Resource<List<User>>> = MutableLiveData()
 
-    fun getText() = viewModelScope.launch(Dispatchers.IO) {
-        getText.postValue(Resource.Loading())
+    fun getAllUsers() = viewModelScope.launch(Dispatchers.IO) {
+        getAllUsers.postValue(Resource.Loading())
         try {
-            val apiResult = apiRepository.getText(1)
-            getText.postValue(apiResult)
+            val apiResult = apiRepository.getAllUsers()
+            getAllUsers.postValue(apiResult)
         } catch (e: Exception) {
-            getText.postValue(Resource.Error(e.message.toString()))
+            getAllUsers.postValue(Resource.Error(e.message.toString()))
         }
     }
 }
