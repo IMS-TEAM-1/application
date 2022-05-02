@@ -14,7 +14,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val apiRepository: ApiRepository): ViewModel() {
+class MapViewModel @Inject constructor(private val apiRepository: ApiRepository): ViewModel() {
 
     val getText: MutableLiveData<Resource<ApiResponse>> = MutableLiveData()
 
