@@ -1,14 +1,15 @@
 package com.example.ims3000.ui.sampledata
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.ims3000.R
 import com.example.ims3000.databinding.FragmentMowerStatusBinding
 
 /**
@@ -54,7 +55,7 @@ class MowerStatusFragment : Fragment() {
         false
     }
 
-    private var dummyButton: Button? = null
+
     private var fullscreenContent: View? = null
     private var fullscreenContentControls: View? = null
 
@@ -83,10 +84,15 @@ class MowerStatusFragment : Fragment() {
         // Set up the user interaction to manually show or hide the system UI.
         fullscreenContent?.setOnClickListener { toggle() }
 
+        binding.timerButton.setOnClickListener {  val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.MowerFragment, TimerFragment())
+            transaction.commit()
+        }
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        dummyButton?.setOnTouchListener(delayHideTouchListener)
+
     }
 
     override fun onResume() {
@@ -110,7 +116,6 @@ class MowerStatusFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        dummyButton = null
         fullscreenContent = null
         fullscreenContentControls = null
     }
