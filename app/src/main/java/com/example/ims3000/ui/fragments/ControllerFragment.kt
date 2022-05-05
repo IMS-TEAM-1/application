@@ -1,5 +1,6 @@
 package com.example.ims3000.ui.fragments
 
+import android.Manifest
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.bluetooth.BluetoothAdapter
@@ -7,11 +8,14 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.bluetooth.le.BluetoothLeScanner
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.ims3000.R
 import com.example.ims3000.databinding.FragmentControllerBinding
@@ -23,7 +27,7 @@ import java.util.*
 
 
 @AndroidEntryPoint
-open class ControllerFragment : Fragment(R.layout.fragment_controller) {
+class ControllerFragment : Fragment(R.layout.fragment_controller) {
 
     //lateinit var viewModel: HomeViewModel
     private var _binding: FragmentControllerBinding? = null
@@ -76,16 +80,28 @@ open class ControllerFragment : Fragment(R.layout.fragment_controller) {
     }
     private fun InitializeSocket(btDevice : BluetoothDevice){
         try {
+            if (ActivityCompat.checkSelfPermission(this.requireContext(),
+                    Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return
+            }
             btSocket = btDevice.createRfcommSocketToServiceRecord(myUUID);
-        } catch (IOException e) {
+        } catch (e: IOException) {
             //Error
         }
 
         try {
-            btSocket.connect()
+            btSocket?.connect()
         } catch (connEx: IOException) {
             try {
-                btSocket.close()
+                btSocket?.close()
             } catch (closeException: IOException) {
                 //Error
             }
