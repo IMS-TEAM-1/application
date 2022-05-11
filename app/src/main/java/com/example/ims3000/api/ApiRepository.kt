@@ -2,6 +2,7 @@ package com.example.ims3000.api
 
 import com.example.ims3000.api.util.Resource
 import com.example.ims3000.data.remote.Mower
+import com.example.ims3000.data.remote.MowerStatus
 import com.example.ims3000.data.remote.User
 import retrofit2.Response
 import javax.inject.Inject
@@ -58,4 +59,17 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
         }
         return Resource.Error(response.message())
     }
+
+    suspend fun updateMowerStatusById(id: Int, status: MowerStatus): Resource<MowerStatus> {
+        return mowerStatusUpdateResponse(apiInterface.updateMowerStatusById(id, status))
+    }
+    private fun mowerStatusUpdateResponse(response: Response<MowerStatus>): Resource<MowerStatus> {
+        if (response.isSuccessful) {
+            response.body()?.let { result ->
+                return Resource.Success(result)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
 }
