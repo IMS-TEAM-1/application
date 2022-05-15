@@ -43,14 +43,10 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())?.get(MapViewModel::class.java)
 
-        val drawer = MapDrawer()
-        drawer.drawLines(canvas = Canvas(), 100F, 100F, 200F, 200F)
-        binding.mapCanvas.setImageDrawable(drawer)
-
         binding.drawButton.setOnClickListener {
-            //draw(canvas)
-            //bitmap.draw(canvas)
-            //binding.mapCanvas.background
+            val drawer = MapDrawer()
+            drawer.drawLines(canvas = Canvas(), 100F, 100F, 200F, 200F)
+            binding.mapCanvas.setImageDrawable(drawer)
         }
     }
 

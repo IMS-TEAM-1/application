@@ -5,29 +5,26 @@ import android.graphics.ColorFilter
 import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable
+import android.util.Log
 
 class MapDrawer : Drawable() {
 
     private val redPaint: Paint = Paint().apply { setARGB(255, 255, 0, 0) }
+    private val anotherPaint: Paint = Paint().apply { setARGB(255, 0, 255, 0) }
+
+    val xStart: Float = 0.0f
+    val yStart: Float = 0.0f
+    val xEnd: Float = 0.0f
+    val yEnd: Float = 0.0f
 
     fun drawLines(canvas: Canvas, xStart: Float, yStart: Float, xEnd: Float, yEnd: Float) {
-        // Get the drawable's bounds
-        val width: Int = bounds.width()
-        val height: Int = bounds.height()
-        val radius: Float = Math.min(width, height).toFloat() / 2f
-        canvas.drawLine(xStart, yStart, xEnd, yEnd, redPaint)
-        // Draw a red circle in the center
-        //canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), radius, redPaint)
+        canvas.drawLine(xStart, yStart, xEnd, yEnd, anotherPaint)
     }
 
     override fun draw(canvas: Canvas) {
-        // Get the drawable's bounds
-        val width: Int = bounds.width()
-        val height: Int = bounds.height()
-        val radius: Float = Math.min(width, height).toFloat() / 2f
-
-        // Draw a red circle in the center
-        canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), radius, redPaint)
+        anotherPaint.strokeWidth = 550F
+        redPaint.strokeWidth = 50F
+        canvas.drawLine(200F, 200F, 600F, 500F, redPaint)
     }
 
 
