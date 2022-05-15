@@ -27,7 +27,6 @@ class MapFragment : Fragment(R.layout.fragment_map) {
     lateinit var viewModel: MapViewModel
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
-    private val redPaint: Paint = Paint().apply { setARGB(255, 255, 0, 0) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
