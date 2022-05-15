@@ -1,6 +1,9 @@
 package com.example.ims3000.ui.fragments
 
 import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.ims3000.R
 import com.example.ims3000.api.util.Resource
 import com.example.ims3000.databinding.FragmentMapBinding
+import com.example.ims3000.ui.MapDrawer
 import com.example.ims3000.ui.viewmodels.MapViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
@@ -39,34 +43,16 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())?.get(MapViewModel::class.java)
 
-        val canvas = Canvas()
+        val drawer = MapDrawer()
+        drawer.drawLines(canvas = Canvas(), 100F, 100F, 200F, 200F)
+        binding.mapCanvas.setImageDrawable(drawer)
 
         binding.drawButton.setOnClickListener {
-            binding.mapCanvas.draw(canvas)
+            //draw(canvas)
+            //bitmap.draw(canvas)
+            //binding.mapCanvas.background
         }
     }
-
-    fun draw(canvas: Canvas) {
-        // Get the drawable's bounds
-        val width: Int = binding.mapCanvas.maxWidth
-        val height: Int = binding.mapCanvas.maxHeight
-        val radius: Float = Math.min(width, height).toFloat() / 2f
-
-        // Draw a red circle in the center
-        canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), radius, redPaint)
-    }
-
-    fun setAlpha(alpha: Int) {
-        // This method is required
-    }
-
-    fun setColorFilter(colorFilter: ColorFilter?) {
-        // This method is required
-    }
-
-    fun getOpacity(): Int =
-        // Must be PixelFormat.UNKNOWN, TRANSLUCENT, TRANSPARENT, or OPAQUE
-        PixelFormat.OPAQUE
 
 }
 
