@@ -12,6 +12,9 @@ class MapDrawer : Drawable() {
     private val redPaint: Paint = Paint().apply { setARGB(255, 255, 0, 0) }
     private val anotherPaint: Paint = Paint().apply { setARGB(255, 0, 255, 0) }
 
+    private val xCords = mutableListOf<Float>()
+    private val yCords = mutableListOf<Float>()
+
     val xStart: Float = 0.0f
     val yStart: Float = 0.0f
     val xEnd: Float = 0.0f
@@ -22,11 +25,9 @@ class MapDrawer : Drawable() {
     }
 
     override fun draw(canvas: Canvas) {
-        anotherPaint.strokeWidth = 550F
         redPaint.strokeWidth = 50F
         canvas.drawLine(200F, 200F, 600F, 500F, redPaint)
     }
-
 
     override fun setAlpha(alpha: Int) {
         // This method is required
