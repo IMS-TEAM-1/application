@@ -1,5 +1,6 @@
 package com.example.ims3000.ui.fragments
 
+import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -62,9 +63,8 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
         binding.drawButton.setOnClickListener {
             val drawer = MapDrawer()
-            Log.d("debug", mowerCoordinates.size.toString())
+            Log.d("debug", mowerCoordinates.size.toString() + " size for mowerCoordinates")
             mowerCoordinates.forEachIndexed { index, coordinates ->
-                Log.d("debug", index.toString())
                 if (index == mowerCoordinates.size) {
                     //Skip
                 } else {
@@ -72,10 +72,9 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                     drawer.yStart = mowerCoordinates[index].y
                     drawer.xEnd = mowerCoordinates[index+1].x
                     drawer.yEnd = mowerCoordinates[index+1].y
-                    Log.d("debug", mowerCoordinates[index].x.toString())
+
                 }
             }
-            //Log.d("debug", mowerCoordinates[0].x.toString())
             binding.mapCanvas.setImageDrawable(drawer)
         }
     }

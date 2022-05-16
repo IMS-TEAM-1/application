@@ -26,6 +26,6 @@ interface ApiInterface {
         @Path("id") id: Int,
         @Body status: MowerStatus): Response<MowerStatus>
 
-    @GET("mowers/{id}/location")
+    @GET("mowers/{id}/locations")
     suspend fun getMowerLocationById(@Path("id") id: Int): Response<List<MowerLocation>>
 }

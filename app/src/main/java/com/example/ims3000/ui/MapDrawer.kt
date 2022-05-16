@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable
 import android.util.Log
+import com.example.ims3000.data.entities.Coordinates
 
 class MapDrawer : Drawable() {
 
@@ -17,8 +18,9 @@ class MapDrawer : Drawable() {
     var xEnd: Float = 0.0f
     var yEnd: Float = 0.0f
 
-    fun drawLines(canvas: Canvas, xStart: Float, yStart: Float, xEnd: Float, yEnd: Float) {
-        canvas.drawLine(xStart, yStart, xEnd, yEnd, anotherPaint)
+    private fun addCords(x: Float, y: Float) {
+        val item = Coordinates(x, y)
+        mowerCoordinates.add(item)
     }
 
     override fun draw(canvas: Canvas) {

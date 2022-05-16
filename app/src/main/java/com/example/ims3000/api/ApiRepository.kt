@@ -1,5 +1,6 @@
 package com.example.ims3000.api
 
+import android.util.Log
 import com.example.ims3000.api.util.Resource
 import com.example.ims3000.data.remote.Mower
 import com.example.ims3000.data.remote.MowerLocation
@@ -77,6 +78,7 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
         return getMowerLocationResponse(apiInterface.getMowerLocationById(id))
     }
     private fun getMowerLocationResponse(response: Response<List<MowerLocation>>): Resource<List<MowerLocation>> {
+        Log.d("debug", "apirepo: " + response.body()?.get(0)?.id.toString())
         if (response.isSuccessful) {
             response.body()?.let { result ->
                 return Resource.Success(result)
