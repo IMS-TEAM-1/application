@@ -1,7 +1,7 @@
 package com.example.ims3000.api
 
-import com.example.ims3000.data.entities.mockApiData
 import com.example.ims3000.data.remote.Mower
+import com.example.ims3000.data.remote.MowerLocation
 import com.example.ims3000.data.remote.MowerStatus
 import com.example.ims3000.data.remote.User
 import retrofit2.Response
@@ -25,4 +25,7 @@ interface ApiInterface {
     suspend fun updateMowerStatusById(
         @Path("id") id: Int,
         @Body status: MowerStatus): Response<MowerStatus>
+
+    @GET("mowers/{id}/location")
+    suspend fun getMowerLocationById(@Path("id") id: Int): Response<List<MowerLocation>>
 }

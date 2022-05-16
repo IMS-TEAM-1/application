@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.ims3000.api.ApiRepository
 import com.example.ims3000.api.ApiResponse
 import com.example.ims3000.api.util.Resource
+import com.example.ims3000.data.remote.MowerLocation
 import com.example.ims3000.data.remote.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,4 +22,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MapViewModel @Inject constructor(private val apiRepository: ApiRepository): ViewModel() {
 
+    val getMowerLocation: MutableLiveData<Resource<List<MowerLocation>>> = MutableLiveData()
+    fun getMowerLocation(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+        getMowerLocation.postValue(Resource.Loading())
+        try {
+            val apiResult = apiRepository.getMowerLocationById(id)
+            getMowerLocation.postValue(apiResult)
+        } catch (e: Exception) {
+            getMowerLocation.postValue(Resource.Error(e.message.toString()))
+        }
+    }
 }
