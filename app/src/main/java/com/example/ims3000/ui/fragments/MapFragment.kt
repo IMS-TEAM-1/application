@@ -25,7 +25,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
-    private val mowerId = 1
+    private val mowerId = 2
     private val mowerCoordinates = mutableListOf<Coordinates>()
 
     override fun onCreateView(
@@ -42,22 +42,10 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())?.get(MapViewModel::class.java)
 
-        fetchMowerLocationFromViewModelById(mowerId)
-        viewModel.getMowerLocation.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resource.Success -> response.data?.let { result ->
-                    result.forEach { mowerLocation ->
-                        if (mowerLocation.images.isEmpty()) {
-                            addCords(mowerLocation.x, mowerLocation.y, null)
-                        } else {
-                            addCords(mowerLocation.x, mowerLocation.y, mowerLocation.images[0]?.classification)
-                        }
-                    }
-                }
-            }
-        }
+        updateMowerLocation()
 
         binding.drawButton.setOnClickListener {
+            updateMowerLocation()
             val drawer = MapDrawer()
             mowerCoordinates.forEachIndexed { index, coordinates ->
                 if (index == mowerCoordinates.size) {
@@ -86,6 +74,23 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         } else {
             val item = Coordinates(x, y, classification)
             mowerCoordinates.add(item)
+        }
+    }
+
+    private fun updateMowerLocation() {
+        fetchMowerLocationFromViewModelById(mowerId)
+        viewModel.getMowerLocation.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> response.data?.let { result ->
+                    result.forEach { mowerLocation ->
+                        if (mowerLocation.images.isEmpty()) {
+                            addCords(mowerLocation.x, mowerLocation.y, null)
+                        } else {
+                            addCords(mowerLocation.x, mowerLocation.y, mowerLocation.images[0]?.classification)
+                        }
+                    }
+                }
+            }
         }
     }
 }

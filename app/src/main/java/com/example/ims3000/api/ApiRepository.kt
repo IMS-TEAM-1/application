@@ -6,6 +6,7 @@ import com.example.ims3000.data.remote.Mower
 import com.example.ims3000.data.remote.MowerLocation
 import com.example.ims3000.data.remote.MowerStatus
 import com.example.ims3000.data.remote.User
+import kotlinx.coroutines.awaitAll
 import retrofit2.Response
 import javax.inject.Inject
 
