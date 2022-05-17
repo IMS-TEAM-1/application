@@ -27,7 +27,7 @@ class MapDrawer : Drawable() {
     override fun draw(canvas: Canvas) {
         redPaint.strokeWidth = 25F
         mowerCoordinates.forEachIndexed { index, coordinates ->
-            if (index+1 == mowerCoordinates.size) {
+            if (index == mowerCoordinates.size - 1) {
                 //Skip
                 Log.d("debug", "drawFunction: if block index value: " + index.toString())
                 return
