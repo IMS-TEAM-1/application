@@ -68,11 +68,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                 if (index == mowerCoordinates.size) {
                     //Skip
                 } else {
-                    drawer.xStart = mowerCoordinates[index].x
-                    drawer.yStart = mowerCoordinates[index].y
-                    drawer.xEnd = mowerCoordinates[index+1].x
-                    drawer.yEnd = mowerCoordinates[index+1].y
-
+                    drawer.addCords(mowerCoordinates[index].x, mowerCoordinates[index].y)
                 }
             }
             binding.mapCanvas.setImageDrawable(drawer)

@@ -17,15 +17,38 @@ class MapDrawer : Drawable() {
     var yStart: Float = 0.0f
     var xEnd: Float = 0.0f
     var yEnd: Float = 0.0f
+    private val mowerCoordinates = mutableListOf<Coordinates>()
 
-    private fun addCords(x: Float, y: Float) {
+    fun addCords(x: Float, y: Float) {
         val item = Coordinates(x, y)
         mowerCoordinates.add(item)
     }
 
     override fun draw(canvas: Canvas) {
-        redPaint.strokeWidth = 255F
-        canvas.drawLine(xStart, yStart, xEnd, yEnd, redPaint)
+        redPaint.strokeWidth = 25F
+        mowerCoordinates.forEachIndexed { index, coordinates ->
+            if (index+1 == mowerCoordinates.size) {
+                //Skip
+                Log.d("debug", "drawFunction: if block index value: " + index.toString())
+                return
+            } else {
+                Log.d("debug", "drawFunction: else block index value: " + index.toString())
+                canvas.drawLine(
+                    mowerCoordinates[index].x,
+                    mowerCoordinates[index].y,
+                    mowerCoordinates[index + 1].x,
+                    mowerCoordinates[index + 1].y,
+                    redPaint)
+                /*
+                canvas.drawLine(
+                    155F,
+                    155F,
+                    290F,
+                    290F,
+                    redPaint)
+                */
+            }
+        }
     }
 
     override fun setAlpha(alpha: Int) {
