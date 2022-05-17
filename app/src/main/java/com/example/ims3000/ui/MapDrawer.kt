@@ -44,18 +44,18 @@ class MapDrawer : Drawable() {
                         drawerCoordinates[index].y,
                         greenPaint)
                 } else {
-                    if (drawerCoordinates[index].classification == null) {
-                        canvas.drawPoint(
-                            drawerCoordinates[index].x,
-                            drawerCoordinates[index].y,
-                            bluePaint)
-                    }
                     canvas.drawLine(
                         drawerCoordinates[index].x,
                         drawerCoordinates[index].y,
                         drawerCoordinates[index + 1].x,
                         drawerCoordinates[index + 1].y,
                         redPaint)
+                    if (drawerCoordinates[index].classification == null) {
+                        canvas.drawPoint(
+                            drawerCoordinates[index].x,
+                            drawerCoordinates[index].y,
+                            bluePaint)
+                    }
                 }
             }
         }
