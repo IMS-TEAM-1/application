@@ -8,7 +8,9 @@ import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
@@ -24,7 +26,7 @@ import java.util.*
 import javax.inject.Inject
 
 
-class ControllerViewModel(application: Application) : AndroidViewModel(application) {
+open class ControllerViewModel(application: Application) : AndroidViewModel(application) {
 
     // should contain interactions
 
@@ -34,44 +36,24 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
     private val btDevice : BluetoothDevice? = null
 
 
-    fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>, grantResults: IntArray
-    ) {
-        when (requestCode) {
-            ControllerFragment.PERMISSION_REQUEST_COARSE_LOCATION -> {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    println("coarse location permission granted")
-                } else {
-                    val builder = AlertDialog.Builder(getApplication())
-                    builder.setTitle("Functionality limited")
-                    builder.setMessage("Since location access has not been granted, this app will not be able to discover BLE beacons")
-                    builder.setPositiveButton(android.R.string.ok, null)
-                    builder.setOnDismissListener { }
-                    builder.show()
-                }
-                return
-            }
-        }
-    }
 
-    @Override
-    fun onActivityResult(requestCode: Int, resultCode: Int) {
-        if (requestCode == ControllerFragment.REQUEST_ENABLE_BT) {
-            if (resultCode == Activity.RESULT_OK) {
-                // Bluetooth was enabled
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                // Bluetooth was not enabled
-            }
-        }
-    }
 
-    open fun InitializeSocket(){
+    @RequiresApi(Build.VERSION_CODES.S)
+    open fun initializeSocket(){
         try {
+
             if (ActivityCompat.checkSelfPermission(getApplication(),
                     Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
-            )
-                btSocket = btDevice?.createRfcommSocketToServiceRecord(myUUID)
+            ) {
+                Manifest.permission.BLUETOOTH_CONNECT
+                Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+
+                return
+            }
+            Log.e("WTF", "we are here" )
+            btSocket = btDevice?.createRfcommSocketToServiceRecord(myUUID)
 
         } catch (e: IOException) {
             //Error
@@ -80,24 +62,28 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
 
         try {
             btSocket?.connect()
-        } catch (connEx: IOException) {
+        }
+        catch (connEx: IOException) {
             try {
                 btSocket?.close()
             } catch (closeException: IOException) {
-                //Error
+                Log.e("socket closed", closeException.toString())
             }
         }
 
         if (btSocket != null && btSocket!!.isConnected) {
             //Socket is connected, now we can obtain our IO streams
-        }
-
-        try {
+            Log.e("LOL", "we are connected")
             inputStream = btSocket?.inputStream
             outputStream = btSocket?.outputStream
-        } catch (e: IOException) {
-            //Error
         }
+
+        //try {
+        //    inputStream = btSocket?.inputStream
+        //    outputStream = btSocket?.outputStream
+        //} catch (e: IOException) {
+        //    //Error
+        //}
 
     }
 
