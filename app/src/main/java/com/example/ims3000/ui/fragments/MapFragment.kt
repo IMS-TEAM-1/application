@@ -25,11 +25,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
-    private val mowerId = 1
-    private val xStart = mutableListOf<Float>()
-    private val yStart = mutableListOf<Float>()
-    private val xEnd = mutableListOf<Float>()
-    private val yEnd = mutableListOf<Float>()
+    private val mowerId = 3
     private val mowerCoordinates = mutableListOf<Coordinates>()
 
     override fun onCreateView(
@@ -48,27 +44,29 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
         fetchMowerLocationFromViewModelById(mowerId)
         viewModel.getMowerLocation.observe(viewLifecycleOwner) { response ->
-            response.message?.let { Log.d("debug", it) }
             when (response) {
                 is Resource.Success -> response.data?.let { result ->
                     result.forEach { mowerLocation ->
-                        Log.d("debug", mowerLocation.id.toString())
-                        addCords(mowerLocation.x, mowerLocation.y)
+                        if (mowerLocation.images.isEmpty()) {
+                            addCords(mowerLocation.x, mowerLocation.y, null)
+                        } else {
+                            addCords(mowerLocation.x, mowerLocation.y, mowerLocation.images[0]?.classification)
+                        }
                     }
                 }
             }
         }
 
-        Log.d("debug", "HALLO????")
-
         binding.drawButton.setOnClickListener {
             val drawer = MapDrawer()
-            Log.d("debug", mowerCoordinates.size.toString() + " size for mowerCoordinates")
             mowerCoordinates.forEachIndexed { index, coordinates ->
                 if (index == mowerCoordinates.size) {
                     //Skip
                 } else {
-                    drawer.addCords(mowerCoordinates[index].x, mowerCoordinates[index].y)
+                    drawer.addCords(
+                        mowerCoordinates[index].x,
+                        mowerCoordinates[index].y,
+                        mowerCoordinates[index].classification)
                 }
             }
             binding.mapCanvas.setImageDrawable(drawer)
@@ -81,9 +79,14 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         } catch (e: Exception) {}
     }
 
-    private fun addCords(x: Float, y: Float) {
-        val item = Coordinates(x, y)
-        mowerCoordinates.add(item)
+    private fun addCords(x: Float, y: Float, classification: String?) {
+        if (classification == null) {
+            val item = Coordinates(x, y, null)
+            mowerCoordinates.add(item)
+        } else {
+            val item = Coordinates(x, y, classification)
+            mowerCoordinates.add(item)
+        }
     }
 }
 

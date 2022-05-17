@@ -25,7 +25,7 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
 
     companion object {
         const val mowerDefaultName = "Mower's Name"
-        const val mowerId = 1
+        const val mowerId = 3
         val AUTONOMOUS = MowerStatus("AUTONOMOUS")
         val STANDBY = MowerStatus("STANDBY")
         val MANUAL = MowerStatus("MANUAL")
