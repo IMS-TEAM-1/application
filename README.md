@@ -2,7 +2,7 @@
 
 - [ ] The app shall take user input and translate this to drive commands passed to the robot.
 
-- [ ] The app shall visualize the path travelled by the Mower including collision avoidance events.
+- [x] The app shall visualize the path travelled by the Mower including collision avoidance events.
 
 - [x] The code shall be under version control.
 - [ ] There shall be a Software Design Description document where each source code component is described (Work in progress)
@@ -41,3 +41,48 @@ Allows for easy access to the views components outside of the XML file. Typicall
 <h3>Retrofit, GSON, OkHttp</h3>
 
 The chosen method for sending HTTP requests is Retrofit combined with GSON and OkHttp. Retrofit is a package which allows us to send HTTP requests in Kotlin. We use it together with GSON which helps in converting JSON strings into objects which we can use and insert into our repositories. OkHttp is logging package which is used to help debug when things go wrong. It does for example tell us all information regarding a HTTP request, such as the status code, the header, the body or whatever else one may want to see when debugging requests.
+
+<h3>EasyPermissions</h3>
+
+TODO
+
+<h3>Filestructure</h3>
+
+<h4>api</h4>
+
+The api folder contains files necessary for sending HTTP requests. 
+
+**ApiInterface** which contains the different addresses the app sends requests to.
+
+**ApiRepository** which sends the actual requests to the API.
+
+**Util** folder which contains the resource file which handles abstraction of the response from the API.
+
+<h4>data</h4>
+
+The data folder contains the dataclasses throughtout the app, it has 2 sub folders:
+
+**entities** and **remote**
+
+entities are dataclasses which is only used locally
+
+remote are dataclasses which mimics json objects from the API.
+
+<h4>di</h4>
+
+TODO
+
+<h4>ui</h4>
+
+The ui folder contains files and subfolders relevant to the UI.
+
+**databindings** TODO
+
+**fragments** folder contains all layouts that used on top of an activity.
+
+**viewmodels** folder contains all viewmodels that are used to act as a mediator between api and views.
+
+**MapDrawer** file which is a helper class for visualizing the path of the mower in the MapFragment.
+
+
+
