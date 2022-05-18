@@ -4,7 +4,11 @@ package com.example.ims3000.ui.fragments
 import android.Manifest
 import android.R.attr.data
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
+import android.bluetooth.le.BluetoothLeScanner
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -46,11 +50,6 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-       if(btAdapter?.isEnabled == false){
-           Toast.makeText(context, "Bluetooth is off, ENABLE IT",
-               Toast.LENGTH_SHORT).show()
-       }
 
 
         requestPermissions()
@@ -117,8 +116,18 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
 
     companion object {
         internal const val REQUEST_CODE_LOCATION_PERMISSION = 0
-        var btSocket : BluetoothSocket? = null
-        var btAdapter : BluetoothAdapter? = null
+        private const val REQUEST_ENABLE_BT = 1
+        private var btManager: BluetoothManager? = null
+        private var btAdapter: BluetoothAdapter? = null
+    }
+
+    fun setUpBluetoothManager() {
+        btManager = context?.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        btAdapter = btManager!!.adapter
+        if (btAdapter != null && !btAdapter!!.isEnabled) {
+            val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
@@ -133,7 +142,10 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
                 REQUEST_CODE_LOCATION_PERMISSION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.BLUETOOTH_CONNECT
+                Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.BLUETOOTH_ADMIN,
+                Manifest.permission.BLUETOOTH_ADVERTISE,
+                Manifest.permission.BLUETOOTH,
             )
         } else {
             EasyPermissions.requestPermissions(
@@ -143,7 +155,12 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                Manifest.permission.BLUETOOTH_CONNECT
+                Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.BLUETOOTH_SCAN,
+                Manifest.permission.BLUETOOTH_ADMIN,
+                Manifest.permission.BLUETOOTH_ADVERTISE,
+                Manifest.permission.BLUETOOTH
+
             )
         }
     }

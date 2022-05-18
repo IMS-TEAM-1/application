@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.Application
 import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,7 +17,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import com.example.ims3000.api.ApiRepository
 import com.example.ims3000.ui.fragments.ControllerFragment
-import com.example.ims3000.ui.fragments.ControllerFragment.Companion.btSocket
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
@@ -34,8 +34,7 @@ open class ControllerViewModel(application: Application) : AndroidViewModel(appl
     private var inputStream : InputStream? = null
     private var outputStream : OutputStream? = null
     private val btDevice : BluetoothDevice? = null
-
-
+    private var btSocket : BluetoothSocket? = null
 
 
     @RequiresApi(Build.VERSION_CODES.S)
@@ -45,11 +44,13 @@ open class ControllerViewModel(application: Application) : AndroidViewModel(appl
             if (ActivityCompat.checkSelfPermission(getApplication(),
                     Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
             ) {
-                Manifest.permission.BLUETOOTH_CONNECT
                 Manifest.permission.ACCESS_COARSE_LOCATION
                 Manifest.permission.ACCESS_FINE_LOCATION
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-
+                Manifest.permission.BLUETOOTH_CONNECT
+                Manifest.permission.BLUETOOTH_ADMIN
+                Manifest.permission.BLUETOOTH_ADVERTISE
+                Manifest.permission.BLUETOOTH
+                
                 return
             }
             Log.e("WTF", "we are here" )
