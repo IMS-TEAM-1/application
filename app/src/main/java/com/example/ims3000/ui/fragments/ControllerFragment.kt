@@ -2,12 +2,13 @@ package com.example.ims3000.ui.fragments
 
 
 import android.Manifest
-import android.R.attr.data
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.bluetooth.le.BluetoothLeScanner
+import android.bluetooth.le.ScanCallback
+import android.bluetooth.le.ScanResult
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -20,18 +21,15 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
+import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.ims3000.R
 import com.example.ims3000.databinding.FragmentControllerBinding
-import com.example.ims3000.ui.viewmodels.ControllerViewModel
 import com.example.ims3000.ui.viewmodels.TrackingUtility
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.internal.Contexts.getApplication
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.IOException
@@ -51,7 +49,7 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View {
+    ): ConstraintLayout {
         initializeSocket()
         requestPermissions()
 
@@ -63,6 +61,19 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
         super.onActivityCreated(savedInstanceState)
 
         setUpBluetoothManager()
+
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.BLUETOOTH_CONNECT
+            Manifest.permission.BLUETOOTH_ADMIN
+            Manifest.permission.BLUETOOTH_ADVERTISE
+            Manifest.permission.BLUETOOTH
+            return
+        }
+        btScanner?.startScan(leScanCallback)
 
         val forwardButton = view?.findViewById<Button>(R.id.forward_button)
         val backwardButton = view?.findViewById<Button>(R.id.backward_button)
@@ -135,6 +146,7 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
         private var btSocket : BluetoothSocket? = null
         private var btManager: BluetoothManager? = null
         private var btAdapter: BluetoothAdapter? = null
+        private var btScanner : BluetoothLeScanner? = null
     }
 
     private fun setUpBluetoothManager() {
@@ -204,55 +216,62 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
-    fun initializeSocket(){
-        try {
-            Log.e("WTF", "we are here" )
-            if (ActivityCompat.checkSelfPermission(requireContext(),
-                    Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
-            ) {
-                Manifest.permission.ACCESS_COARSE_LOCATION
-                Manifest.permission.ACCESS_FINE_LOCATION
-                Manifest.permission.BLUETOOTH_CONNECT
-                Manifest.permission.BLUETOOTH_ADMIN
-                Manifest.permission.BLUETOOTH_ADVERTISE
-                Manifest.permission.BLUETOOTH
-
-                return
-            }
-            btSocket = btDevice?.createRfcommSocketToServiceRecord(myUUID)
-
-        } catch (e: IOException) {
-            //Error
-            Log.e("Socket Error", e.toString())
+    private val leScanCallback: ScanCallback = object : ScanCallback() {
+        @RequiresApi(Build.VERSION_CODES.O)
+        override fun onScanResult(callbackType: Int, result: ScanResult) {
+            view?.findViewById<TextView>(R.id.macAddress)!!.text = result.device.address
         }
-
-        try {
-            btSocket?.connect()
-        }
-        catch (connEx: IOException) {
-            try {
-                btSocket?.close()
-            } catch (closeException: IOException) {
-                Log.e("socket closed", closeException.toString())
-            }
-        }
-
-        if (btSocket != null && btSocket!!.isConnected) {
-            //Socket is connected, now we can obtain our IO streams
-            Log.e("LOL", "we are connected")
-            inputStream = btSocket?.inputStream
-            outputStream = btSocket?.outputStream
-        }
-
-        //try {
-        //    inputStream = btSocket?.inputStream
-        //    outputStream = btSocket?.outputStream
-        //} catch (e: IOException) {
-        //    //Error
-        //}
-
     }
+
+   private fun initializeSocket(){
+       try {
+           Log.e("WTF", "we are here" )
+           if (ActivityCompat.checkSelfPermission(requireContext(),
+                   Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
+           ) {
+               Manifest.permission.ACCESS_COARSE_LOCATION
+               Manifest.permission.ACCESS_FINE_LOCATION
+               Manifest.permission.BLUETOOTH_CONNECT
+               Manifest.permission.BLUETOOTH_ADMIN
+               Manifest.permission.BLUETOOTH_ADVERTISE
+               Manifest.permission.BLUETOOTH
+
+               return
+           }
+           Log.e("SOK", "LUL" )
+           btSocket = btDevice?.createRfcommSocketToServiceRecord(myUUID)
+
+      } catch (e: IOException) {
+          //Error
+          Log.e("Socket Error", e.toString())
+      }
+
+      try {
+          btSocket?.connect()
+      }
+      catch (connEx: IOException) {
+          try {
+              btSocket?.close()
+          } catch (closeException: IOException) {
+              Log.e("socket closed", closeException.toString())
+          }
+      }
+
+      if (btSocket != null && btSocket!!.isConnected) {
+          //Socket is connected, now we can obtain our IO streams
+          Log.e("LOL", "we are connected")
+          inputStream = btSocket?.inputStream
+          outputStream = btSocket?.outputStream
+      }
+
+      //try {
+      //    inputStream = btSocket?.inputStream
+      //    outputStream = btSocket?.outputStream
+      //} catch (e: IOException) {
+      //    //Error
+      //}
+
+   }
 
     private fun write(bytes: Int?) {
         try {
@@ -261,5 +280,7 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
             //Error
         }
     }
+
+
 
 }
