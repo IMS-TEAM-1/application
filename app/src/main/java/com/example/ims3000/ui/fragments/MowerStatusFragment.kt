@@ -29,6 +29,7 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
         val AUTONOMOUS = MowerStatus("AUTONOMOUS")
         val STANDBY = MowerStatus("STANDBY")
         val MANUAL = MowerStatus("MANUAL")
+        val DIAGNOSTIC = MowerStatus("DIAGNOSTIC")
     }
 
     override fun onCreateView(
