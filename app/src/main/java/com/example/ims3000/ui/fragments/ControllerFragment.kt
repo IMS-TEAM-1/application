@@ -23,6 +23,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.ims3000.R
@@ -51,14 +52,13 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-
+        initializeSocket()
         requestPermissions()
 
         _binding = FragmentControllerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -71,7 +71,7 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
 
         //val controllerViewModel = ViewModelProvider(this)[ControllerViewModel::class.java]
 
-        initializeSocket()
+
 
 
        forwardButton?.setOnTouchListener(OnTouchListener { v, event ->
@@ -138,11 +138,12 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
     }
 
     private fun setUpBluetoothManager() {
-        btManager = context?.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        btManager = requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         btAdapter = btManager!!.adapter
         if (btAdapter != null && !btAdapter!!.isEnabled) {
             val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT)
+
         }
     }
 
@@ -206,8 +207,6 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
     @RequiresApi(Build.VERSION_CODES.S)
     fun initializeSocket(){
         try {
-
-
             Log.e("WTF", "we are here" )
             if (ActivityCompat.checkSelfPermission(requireContext(),
                     Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
@@ -255,7 +254,7 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
 
     }
 
-    open fun write(bytes: Int?) {
+    private fun write(bytes: Int?) {
         try {
             outputStream?.write(bytes!!)
         } catch (e: IOException) {
