@@ -44,7 +44,7 @@ The chosen method for sending HTTP requests is Retrofit combined with GSON and O
 
 <h3>EasyPermissions</h3>
 
-TODO
+Package for handling permissions.
 
 <h3>Filestructure</h3>
 

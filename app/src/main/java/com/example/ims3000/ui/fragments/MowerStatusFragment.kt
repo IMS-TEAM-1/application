@@ -64,6 +64,10 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
             viewModel.updateMowerStatusById(mowerId, STANDBY)
         }
 
+        binding.parkButton.setOnClickListener {
+            viewModel.updateMowerStatusById(mowerId, DIAGNOSTIC)
+        }
+
     }
 
     private fun fetchAllUsersFromViewModel() {
