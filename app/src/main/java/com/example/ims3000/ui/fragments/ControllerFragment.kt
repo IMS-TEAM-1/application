@@ -42,7 +42,7 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-
+        setUpBluetoothManager()
         _binding = FragmentControllerBinding.inflate(inflater, container, false)
         return binding.root
     }
