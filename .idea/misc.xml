@@ -41,10 +41,8 @@
         <entry key="..\:/Users/killi/JU/IMS/application/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/killi/JU/IMS/application/app/src/main/res/layout/fragment_home.xml" value="0.23505434782608695" />
         <entry key="..\:/Users/killi/JU/IMS/application/app/src/main/res/layout/fragment_test.xml" value="0.23505434782608695" />
-        <entry key="..\:/plugg/IMS/application/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
-        <entry key="..\:/plugg/IMS/application/app/src/main/res/layout/activity_splash_screen.xml" value="0.22447916666666667" />
-        <entry key="..\:/plugg/IMS/application/app/src/main/res/layout/fragment_timer.xml" value="0.22447916666666667" />
-        <entry key="..\:/plugg/IMS/application/app/src/main/res/layout/select_device_layout.xml" value="0.22447916666666667" />
+        <entry key="..\:/plugg/IMS/application/app/src/main/res/layout/activity_select_device.xml" value="0.11231884057971014" />
+        <entry key="..\:/plugg/IMS/application/app/src/main/res/layout/fragment_controller.xml" value="0.16203703703703703" />
       </map>
     </option>
   </component>

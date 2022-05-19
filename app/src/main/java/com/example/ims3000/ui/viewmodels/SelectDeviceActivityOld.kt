@@ -11,12 +11,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -28,7 +26,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class SelectDeviceActivity : AppCompatActivity() {
+class SelectDeviceActivityOld : AppCompatActivity() {
 
     private var m_bluetoothAdapter: BluetoothAdapter? = null
     private lateinit var m_pairedDevices: Set<BluetoothDevice>
@@ -47,7 +45,7 @@ class SelectDeviceActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_device)
+        setContentView(R.layout.select_device_layout)
         // Make sure bluetooth is enabled before loading the rest of the UI
         m_bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (m_bluetoothAdapter == null ) {
@@ -101,14 +99,12 @@ class SelectDeviceActivity : AppCompatActivity() {
                 Log.i("device", ""+device)
                 Log.i("-->name: ", ""+device.name)
             }
-
         } else {
         }
         val deviceList = findViewById<ListView>(R.id.select_device_list)
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, nameList)
         deviceList.adapter = adapter
         deviceList.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            deviceList.setBackgroundColor(Color.RED)
             val device: BluetoothDevice = list[position]
             m_address = device.address
             // Tell service to go connect to device
@@ -116,7 +112,6 @@ class SelectDeviceActivity : AppCompatActivity() {
             // Start AsyncTask to wait for service to complete
             WaitForConnect(this).execute()
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

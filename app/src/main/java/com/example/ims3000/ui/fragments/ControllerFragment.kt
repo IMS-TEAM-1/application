@@ -2,17 +2,12 @@ package com.example.ims3000.ui.fragments
 
 
 import android.Manifest
-import android.R.attr.data
-import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
-import android.bluetooth.le.BluetoothLeScanner
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -33,8 +28,7 @@ import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import android.content.ServiceConnection
 import android.os.IBinder
-import java.util.*
-import kotlin.math.log
+import com.example.ims3000.ui.viewmodels.SelectDeviceActivity
 
 
 @AndroidEntryPoint
@@ -71,9 +65,14 @@ class ControllerFragment : Fragment(R.layout.fragment_controller), EasyPermissio
         val backwardButton = view?.findViewById<Button>(R.id.backward_button)
         val turnRightButton = view?.findViewById<Button>(R.id.turn_right_button)
         val turnLeftButton = view?.findViewById<Button>(R.id.turn_left_button)
+        val deviceListButton = view?.findViewById<Button>(R.id.device_list_button)
 
         //val controllerViewModel = ViewModelProvider(this)[ControllerViewModel::class.java]
 
+        deviceListButton?.setOnClickListener(){
+            val intent = Intent(context, SelectDeviceActivity::class.java)
+            startActivity(intent)
+        }
 
 
 

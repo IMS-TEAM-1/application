@@ -106,11 +106,11 @@
             app:backgroundTint="@null" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/ConnectionStatus"
+    <Button
+        android:id="@+id/device_list_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Status"
+        android:text="Device List"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
