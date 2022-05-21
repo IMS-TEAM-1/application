@@ -1,4 +1,4 @@
-package com.example.ims3000.ui.viewmodels
+package com.example.ims3000.ui
 
 import android.Manifest
 import android.content.Context
@@ -20,6 +20,7 @@ object TrackingUtility {
                 Manifest.permission.BLUETOOTH_ADMIN,
                 Manifest.permission.BLUETOOTH_ADVERTISE,
                 Manifest.permission.BLUETOOTH,
+                Manifest.permission.BLUETOOTH_SCAN
             )
         } else {
             EasyPermissions.hasPermissions(
@@ -31,6 +32,7 @@ object TrackingUtility {
                 Manifest.permission.BLUETOOTH_ADMIN,
                 Manifest.permission.BLUETOOTH_ADVERTISE,
                 Manifest.permission.BLUETOOTH,
+                Manifest.permission.BLUETOOTH_SCAN
             )
         }
 }

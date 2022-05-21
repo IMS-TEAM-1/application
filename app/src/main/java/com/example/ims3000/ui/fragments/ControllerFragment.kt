@@ -17,7 +17,7 @@ import com.example.ims3000.data.remote.MowerStatus
 import com.example.ims3000.databinding.FragmentControllerBinding
 import com.example.ims3000.ui.MainActivity
 import com.example.ims3000.ui.viewmodels.ControllerViewModel
-import com.example.ims3000.ui.viewmodels.TrackingUtility
+import com.example.ims3000.ui.TrackingUtility
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.EasyPermissions
 
