@@ -27,10 +27,16 @@ import java.io.OutputStream
 import java.util.*
 import javax.inject.Inject
 
-private lateinit var binding: ActivityMainBinding
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        private val MACADRESS = "E4:5F:01:92:B8:BE"
+        internal const val REQUEST_CODE_LOCATION_PERMISSION = 0
+        private const val REQUEST_ENABLE_BT = 1
+        private val myUUID = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee")
+    }
 
     @Inject
     lateinit var glide: RequestManager
@@ -66,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         val btManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
         val btAdapter: BluetoothAdapter? = btManager.adapter
         if(btAdapter==null){
-            Log.e("Error","Adapt Null")
+            // Prevent btAdapter being null.
         }
         else{
             if (!btAdapter.isEnabled){
@@ -77,8 +83,7 @@ class MainActivity : AppCompatActivity() {
                 if (btConnectThread !=null && btConnectThread!!.isConnected()){
                     return
                 }
-                val btDevice = btAdapter.getRemoteDevice("E4:5F:01:92:B8:BE")
-                Log.e("Adapter","Binding device")
+                val btDevice = btAdapter.getRemoteDevice(MACADRESS)
                 btConnectThread = BtThread(btDevice)
                 btConnectThread!!.run(btAdapter)
             }
@@ -90,14 +95,6 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.frame_layout, fragment)
             commit()
         }
-    companion object {
-        internal const val REQUEST_CODE_LOCATION_PERMISSION = 0
-        private const val REQUEST_ENABLE_BT = 1
-        private val myUUID = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee")
-
-    }
-
-
 
     fun writeToMower(data: Char){
 
@@ -144,10 +141,6 @@ class MainActivity : AppCompatActivity() {
                 //Error
                 Log.e("Socket Error", e.toString())
             }
-
-
-
-
         }
         fun cancel() {
             try {
@@ -165,6 +158,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
 }

@@ -1,34 +1,43 @@
 package com.example.ims3000.ui.fragments
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.ims3000.R
-import com.example.ims3000.data.entities.Coordinates
-import com.example.ims3000.data.remote.MowerDirection
 import com.example.ims3000.data.remote.MowerStatus
 import com.example.ims3000.databinding.FragmentControllerBinding
+import com.example.ims3000.ui.MainActivity
 import com.example.ims3000.ui.viewmodels.ControllerViewModel
-import com.example.ims3000.ui.viewmodels.MapViewModel
+import com.example.ims3000.ui.viewmodels.TrackingUtility
 import dagger.hilt.android.AndroidEntryPoint
-import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
 
 @AndroidEntryPoint
 class ControllerFragment : Fragment(R.layout.fragment_controller),EasyPermissions.PermissionCallbacks {
 
-    val controllerViewModel = ViewModelProvider(this)[ControllerViewModel::class.java]
+    companion object {
+        private const val mowerId = 1
+        private val STANDBY = MowerStatus("STANDBY")
+        private val MANUAL = MowerStatus("MANUAL")
+
+        private val FORWARD = Char(1)
+        private val BACKWARD = Char(3)
+        private val RIGHT = Char(2)
+        private val LEFT = Char(4)
+        private val STOP = Char(0)
+    }
+
+    lateinit var viewModel: ControllerViewModel
     private var _binding: FragmentControllerBinding? = null
     private val binding get() = _binding!!
 
@@ -61,43 +70,50 @@ class ControllerFragment : Fragment(R.layout.fragment_controller),EasyPermission
 
         binding.forwardButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                (activity as MainActivity?)?.writeToMower('1')
+                (activity as MainActivity?)?.writeToMower(FORWARD)
             }
             else if (event.action == MotionEvent.ACTION_UP) {
-                (activity as MainActivity?)?.writeToMower('0')
+                (activity as MainActivity?)?.writeToMower(STOP)
             }
             false
         }
 
         binding.backwardButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                (activity as MainActivity?)?.writeToMower('3')
+                (activity as MainActivity?)?.writeToMower(BACKWARD)
             }
             else if (event.action == MotionEvent.ACTION_UP) {
-                (activity as MainActivity?)?.writeToMower('0')
+                (activity as MainActivity?)?.writeToMower(STOP)
             }
             false
         }
 
         binding.turnRightButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                (activity as MainActivity?)?.writeToMower('2')
+                (activity as MainActivity?)?.writeToMower(RIGHT)
             }
             else if (event.action == MotionEvent.ACTION_UP) {
-                (activity as MainActivity?)?.writeToMower('0')
+                (activity as MainActivity?)?.writeToMower(STOP)
             }
             false
         }
 
         binding.turnLeftButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                (activity as MainActivity?)?.writeToMower('4')
+                (activity as MainActivity?)?.writeToMower(LEFT)
             } else if (event.action == MotionEvent.ACTION_UP) {
-                (activity as MainActivity?)?.writeToMower('0')
+                (activity as MainActivity?)?.writeToMower(STOP)
             }
             false
         }
 
+        binding.manualStart.setOnClickListener {
+            viewModel.updateMowerStatusById(mowerId, MANUAL)
+        }
+
+        binding.manualStop.setOnClickListener {
+            viewModel.updateMowerStatusById(mowerId, STANDBY)
+        }
 
     }
 

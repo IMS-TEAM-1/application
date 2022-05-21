@@ -1,5 +1,7 @@
 package com.example.ims3000.ui.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,8 +16,12 @@ import java.lang.Exception
 import javax.inject.Inject
 
 
-open class ControllerViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class ControllerViewModel @Inject constructor(private val apiRepository: ApiRepository): ViewModel() {
 
+    // Alternative method for manual driving
+    // Backup plan, in case bluetooth fails.
+    /*
     val mowerDirection: MutableLiveData<Resource<MowerDirection>> = MutableLiveData()
     fun updateMowerDirectionById(id: Int, status: MowerDirection) = viewModelScope.launch(Dispatchers.IO) {
         mowerDirection.postValue(Resource.Loading())
@@ -25,6 +31,7 @@ open class ControllerViewModel(application: Application) : AndroidViewModel(appl
             mowerDirection.postValue(Resource.Error(e.message.toString()))
         }
     }
+    */
 
     val mowerStatus: MutableLiveData<Resource<MowerStatus>> = MutableLiveData()
     fun updateMowerStatusById(id: Int, status: MowerStatus) = viewModelScope.launch(Dispatchers.IO) {

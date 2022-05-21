@@ -84,6 +84,8 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
         return Resource.Error(response.message())
     }
 
+    // Backup if BT fails.
+    /*
     suspend fun updateMowerDirectionById(id: Int, status: MowerDirection): Resource<MowerDirection> {
         return mowerDirectionUpdateResponse(apiInterface.updateMowerDirectionById(id, status))
     }
@@ -95,5 +97,6 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
         }
         return Resource.Error(response.message())
     }
+    */
 
 }
