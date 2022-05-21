@@ -46,9 +46,8 @@ class ControllerFragment : Fragment(R.layout.fragment_controller) {
     ): View {
         _binding = FragmentControllerBinding.inflate(inflater, container, false)
         return binding.root
-
     }
-    //We suppress this error because Buttons want to provide accessibility to blind people
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
