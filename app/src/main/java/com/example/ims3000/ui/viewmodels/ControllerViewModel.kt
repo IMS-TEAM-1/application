@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
-@HiltViewModel
-class ControllerViewModel @Inject constructor(private val apiRepository: ApiRepository): ViewModel() {
+
+open class ControllerViewModel(application: Application) : AndroidViewModel(application) {
 
     val mowerDirection: MutableLiveData<Resource<MowerDirection>> = MutableLiveData()
     fun updateMowerDirectionById(id: Int, status: MowerDirection) = viewModelScope.launch(Dispatchers.IO) {
@@ -35,5 +35,9 @@ class ControllerViewModel @Inject constructor(private val apiRepository: ApiRepo
             mowerStatus.postValue(Resource.Error(e.message.toString()))
         }
     }
+
+
+
+
 
 }
