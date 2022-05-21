@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         val mapFragment = MapFragment()
         val controllerFragment = ControllerFragment()
 
-        //start with this fragment
+        //start with mowerStatusFragment
         makeCurrentFragment(mowerStatusFragment)
 
         binding.bottomNavigation.setOnItemSelectedListener {

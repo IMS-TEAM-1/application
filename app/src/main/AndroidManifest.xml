@@ -18,13 +18,6 @@
             android:exported="false"
             android:theme="@style/Theme.IMS3000.NoActionBar" />
         <activity
-            android:name=".ui.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.IMS3000.NoActionBar" />
-        <activity
             android:name=".ui.SplashScreenActivity"
             android:exported="true"
             android:configChanges="orientation"
