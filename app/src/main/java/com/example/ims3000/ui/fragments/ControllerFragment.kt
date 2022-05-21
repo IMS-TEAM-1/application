@@ -56,11 +56,9 @@ class ControllerFragment : Fragment(R.layout.fragment_controller) {
 
         binding.forwardButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                Log.d("direction", "forward DOWN")
                 viewModel.updateMowerDirectionById(mowerId, directionForward)
             }
             if (event.action == MotionEvent.ACTION_UP) {
-                Log.d("direction", "forward UP")
                 viewModel.updateMowerDirectionById(mowerId, STOP)
             }
             false
