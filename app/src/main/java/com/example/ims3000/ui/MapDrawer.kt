@@ -37,7 +37,7 @@ class MapDrawer : Drawable() {
     }
 
     private fun defineScalingFactor() {
-        // Scaling offset roughly == 90% of standard xOffset
+        // Scaling offset roughly == 80% of standard xOffset
         val scalingOffset = 450F
         var xMax = 0F
         var yMax = 0F

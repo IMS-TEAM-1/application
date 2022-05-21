@@ -25,10 +25,9 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
 
     companion object {
         const val mowerDefaultName = "Mower's Name"
-        const val mowerId = 2
+        const val mowerId = 1
         val AUTONOMOUS = MowerStatus("AUTONOMOUS")
         val STANDBY = MowerStatus("STANDBY")
-        val MANUAL = MowerStatus("MANUAL")
         val DIAGNOSTIC = MowerStatus("DIAGNOSTIC")
     }
 
@@ -64,7 +63,7 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
             viewModel.updateMowerStatusById(mowerId, STANDBY)
         }
 
-        binding.parkButton.setOnClickListener {
+        binding.startDiagnostic.setOnClickListener {
             viewModel.updateMowerStatusById(mowerId, DIAGNOSTIC)
         }
 
