@@ -63,8 +63,6 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             Manifest.permission.BLUETOOTH
         }
 
-        requestPermissions()
-
         val mowerStatusFragment = MowerStatusFragment()
         val mapFragment = MapFragment()
         val controllerFragment = ControllerFragment()
@@ -233,6 +231,5 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
-
 
 }
