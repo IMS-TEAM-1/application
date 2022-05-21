@@ -24,11 +24,11 @@ class MowerStatusFragment : Fragment(R.layout.fragment_mower_status) {
     lateinit var viewModel: MowerStatusViewModel
 
     companion object {
-        const val mowerDefaultName = "Mower's Name"
-        const val mowerId = 1
-        val AUTONOMOUS = MowerStatus("AUTONOMOUS")
-        val STANDBY = MowerStatus("STANDBY")
-        val DIAGNOSTIC = MowerStatus("DIAGNOSTIC")
+        private const val mowerDefaultName = "Mower's Name"
+        private const val mowerId = 1
+        private val AUTONOMOUS = MowerStatus("AUTONOMOUS")
+        private val STANDBY = MowerStatus("STANDBY")
+        private val DIAGNOSTIC = MowerStatus("DIAGNOSTIC")
     }
 
     override fun onCreateView(

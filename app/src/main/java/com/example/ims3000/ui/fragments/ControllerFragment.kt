@@ -2,6 +2,7 @@ package com.example.ims3000.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.ims3000.R
 import com.example.ims3000.data.entities.Coordinates
+import com.example.ims3000.data.remote.MowerDirection
+import com.example.ims3000.data.remote.MowerStatus
 import com.example.ims3000.databinding.FragmentControllerBinding
 import com.example.ims3000.ui.viewmodels.ControllerViewModel
 import com.example.ims3000.ui.viewmodels.MapViewModel
@@ -22,8 +25,19 @@ class ControllerFragment : Fragment(R.layout.fragment_controller) {
     private var _binding: FragmentControllerBinding? = null
     private val binding get() = _binding!!
 
-    private val mowerId = 1
-    private val mowerDirection = mutableListOf<Coordinates>()
+    companion object {
+        private const val mowerId = 1
+
+        private val directionForward = MowerDirection("FORWARD")
+        private val directionBackwards = MowerDirection("BACKWARD")
+        private val directionLeft = MowerDirection("LEFT")
+        private val directionRight = MowerDirection("RIGHT")
+        private val STOP = MowerDirection("STOP")
+
+        private val MANUAL = MowerStatus("MANUAL")
+        private val STANDBY = MowerStatus("STANDBY")
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,50 +56,52 @@ class ControllerFragment : Fragment(R.layout.fragment_controller) {
 
         binding.forwardButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                //Send direction (forward)
+                Log.d("direction", "forward DOWN")
+                viewModel.updateMowerDirectionById(mowerId, directionForward)
             }
             if (event.action == MotionEvent.ACTION_UP) {
-                //Send stop
+                Log.d("direction", "forward UP")
+                viewModel.updateMowerDirectionById(mowerId, STOP)
             }
             false
         }
 
         binding.backwardButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                //Send direction (backward)
+                viewModel.updateMowerDirectionById(mowerId, directionBackwards)
             }
             if (event.action == MotionEvent.ACTION_UP) {
-                //Send stop
+                viewModel.updateMowerDirectionById(mowerId, STOP)
             }
             false
         }
 
         binding.turnLeftButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                //Send direction (left)
+                viewModel.updateMowerDirectionById(mowerId, directionLeft)
             }
             if (event.action == MotionEvent.ACTION_UP) {
-                //Send stop
+                viewModel.updateMowerDirectionById(mowerId, STOP)
             }
             false
         }
 
         binding.turnRightButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                //Send direction (right)
+                viewModel.updateMowerDirectionById(mowerId, directionRight)
             }
             if (event.action == MotionEvent.ACTION_UP) {
-                //Send stop
+                viewModel.updateMowerDirectionById(mowerId, STOP)
             }
             false
         }
 
         binding.manualStart.setOnClickListener {
-
+            viewModel.updateMowerStatusById(mowerId, MANUAL)
         }
 
         binding.manualStop.setOnClickListener {
-
+            viewModel.updateMowerStatusById(mowerId, STANDBY)
         }
     }
 }

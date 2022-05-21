@@ -26,4 +26,14 @@ class ControllerViewModel @Inject constructor(private val apiRepository: ApiRepo
         }
     }
 
+    val mowerStatus: MutableLiveData<Resource<MowerStatus>> = MutableLiveData()
+    fun updateMowerStatusById(id: Int, status: MowerStatus) = viewModelScope.launch(Dispatchers.IO) {
+        mowerStatus.postValue(Resource.Loading())
+        try {
+            apiRepository.updateMowerStatusById(id, status)
+        } catch (e: Exception) {
+            mowerStatus.postValue(Resource.Error(e.message.toString()))
+        }
+    }
+
 }
