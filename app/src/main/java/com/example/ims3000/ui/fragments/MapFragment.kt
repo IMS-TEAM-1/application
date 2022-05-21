@@ -25,7 +25,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
-    private val mowerId = 2
+    private val mowerId = 1
     private val mowerCoordinates = mutableListOf<Coordinates>()
 
     override fun onCreateView(
