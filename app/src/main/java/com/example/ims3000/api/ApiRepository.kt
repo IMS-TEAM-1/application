@@ -2,10 +2,7 @@ package com.example.ims3000.api
 
 import android.util.Log
 import com.example.ims3000.api.util.Resource
-import com.example.ims3000.data.remote.Mower
-import com.example.ims3000.data.remote.MowerLocation
-import com.example.ims3000.data.remote.MowerStatus
-import com.example.ims3000.data.remote.User
+import com.example.ims3000.data.remote.*
 import kotlinx.coroutines.awaitAll
 import retrofit2.Response
 import javax.inject.Inject
@@ -79,6 +76,18 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
         return getMowerLocationResponse(apiInterface.getMowerLocationById(id))
     }
     private fun getMowerLocationResponse(response: Response<List<MowerLocation>>): Resource<List<MowerLocation>> {
+        if (response.isSuccessful) {
+            response.body()?.let { result ->
+                return Resource.Success(result)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    suspend fun updateMowerDirectionById(id: Int, status: MowerDirection): Resource<MowerDirection> {
+        return mowerDirectionUpdateResponse(apiInterface.updateMowerDirectionById(id, status))
+    }
+    private fun mowerDirectionUpdateResponse(response: Response<MowerDirection>): Resource<MowerDirection> {
         if (response.isSuccessful) {
             response.body()?.let { result ->
                 return Resource.Success(result)

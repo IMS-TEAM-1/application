@@ -35,7 +35,6 @@ class MapFragment : Fragment(R.layout.fragment_map) {
     ): View? {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

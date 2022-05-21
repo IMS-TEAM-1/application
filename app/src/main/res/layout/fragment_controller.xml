@@ -118,19 +118,34 @@
         app:srcCompat="@drawable/controller_background"
         tools:src="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/ConnectionStatus"
+    <Button
+        android:id="@+id/manualStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Status"
+        android:text="Manual"
+        android:background="@drawable/button_rounded_corners"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.903"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/manualStop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.165" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/manualStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manual Off"
+        android:background="@drawable/button_rounded_corners"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/manualStart"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

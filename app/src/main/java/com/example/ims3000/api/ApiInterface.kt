@@ -1,9 +1,6 @@
 package com.example.ims3000.api
 
-import com.example.ims3000.data.remote.Mower
-import com.example.ims3000.data.remote.MowerLocation
-import com.example.ims3000.data.remote.MowerStatus
-import com.example.ims3000.data.remote.User
+import com.example.ims3000.data.remote.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -24,8 +21,16 @@ interface ApiInterface {
     @POST("mowers/{id}")
     suspend fun updateMowerStatusById(
         @Path("id") id: Int,
-        @Body status: MowerStatus): Response<MowerStatus>
+        @Body status: MowerStatus
+    ): Response<MowerStatus>
 
     @GET("mowers/{id}/locations")
     suspend fun getMowerLocationById(@Path("id") id: Int): Response<List<MowerLocation>>
+
+    @POST("mowers/{id}/directions")
+    suspend fun updateMowerDirectionById(
+        @Path("id") id: Int,
+        @Body status: MowerDirection
+    ): Response<MowerDirection>
+
 }
