@@ -2,6 +2,7 @@ package com.example.ims3000.ui.fragments
 
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -15,9 +16,11 @@ import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.ims3000.R
 import com.example.ims3000.databinding.FragmentControllerBinding
 import com.example.ims3000.ui.MainActivity
+import com.example.ims3000.ui.viewmodels.ControllerViewModel
 import com.example.ims3000.ui.viewmodels.TrackingUtility
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -27,6 +30,7 @@ import pub.devrel.easypermissions.EasyPermissions
 @AndroidEntryPoint
 class ControllerFragment : Fragment(R.layout.fragment_controller),EasyPermissions.PermissionCallbacks {
 
+    val controllerViewModel = ViewModelProvider(this)[ControllerViewModel::class.java]
     private var _binding: FragmentControllerBinding? = null
     private val binding get() = _binding!!
 
@@ -42,11 +46,9 @@ class ControllerFragment : Fragment(R.layout.fragment_controller),EasyPermission
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        Log.e("ETF","(((HELLO CREATION)))")
-
 
         if (ActivityCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED
@@ -59,63 +61,44 @@ class ControllerFragment : Fragment(R.layout.fragment_controller),EasyPermission
             Manifest.permission.BLUETOOTH
         }
 
-        Log.e("ETF","(((BTN mejkz)))")
-
-        val forwardButton = view?.findViewById<Button>(R.id.forward_button)
-        val backwardButton = view?.findViewById<Button>(R.id.backward_button)
-        val turnRightButton = view?.findViewById<Button>(R.id.turn_right_button)
-        val turnLeftButton = view?.findViewById<Button>(R.id.turn_left_button)
-        Log.e("ETF",forwardButton.toString())
-        //val controllerViewModel = ViewModelProvider(this)[ControllerViewModel::class.java]
-
-
-
-        forwardButton?.setOnTouchListener(OnTouchListener { v, event ->
+        binding.forwardButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 (activity as MainActivity?)?.writeToMower('1')
-                Log.d("Pressed", "Button pressed")
             }
             else if (event.action == MotionEvent.ACTION_UP) {
-                Log.d("Released", "Button released")
                 (activity as MainActivity?)?.writeToMower('0')
             }
             false
-        })
+        }
 
-        backwardButton?.setOnTouchListener(OnTouchListener { v, event ->
+        binding.backwardButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 (activity as MainActivity?)?.writeToMower('3')
-                Log.d("Pressed", "Button pressed")
             }
             else if (event.action == MotionEvent.ACTION_UP) {
-                Log.d("Released", "Button released")
                 (activity as MainActivity?)?.writeToMower('0')
             }
             false
-        })
+        }
 
-        turnRightButton?.setOnTouchListener(OnTouchListener { v, event ->
+        binding.turnRightButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 (activity as MainActivity?)?.writeToMower('2')
-                Log.d("Pressed", "Button pressed")
             }
             else if (event.action == MotionEvent.ACTION_UP) {
-                Log.d("Released", "Button released")
                 (activity as MainActivity?)?.writeToMower('0')
             }
             false
-        })
+        }
 
-        turnLeftButton?.setOnTouchListener(OnTouchListener { v, event ->
+        binding.turnLeftButton.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 (activity as MainActivity?)?.writeToMower('4')
-                Log.d("Pressed", "Button pressed")
             } else if (event.action == MotionEvent.ACTION_UP) {
-                Log.d("Released", "Button released")
                 (activity as MainActivity?)?.writeToMower('0')
             }
             false
-        })
+        }
 
 
     }
@@ -125,7 +108,7 @@ class ControllerFragment : Fragment(R.layout.fragment_controller),EasyPermission
         if(TrackingUtility.hasLocationPermissions(requireContext())) {
             return
         }
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             EasyPermissions.requestPermissions(
                 this,
                 "You need to accept location permissions to use this app.",
@@ -155,14 +138,14 @@ class ControllerFragment : Fragment(R.layout.fragment_controller),EasyPermission
         }
     }
 
-     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
 
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if(EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            AppSettingsDialog.Builder(this).build().show()
+            //AppSettingsDialog.Builder(this).build().show()
         } else {
             requestPermissions()
         }
