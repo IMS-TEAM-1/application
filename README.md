@@ -46,7 +46,7 @@ The data folder contains the dataclasses throughtout the app, it has 2 sub folde
 
 **entities** and **remote**
 
-entities are dataclasses which is only used locally
+entities are dataclasses which is only used local
 
 remote are dataclasses which mimics json objects from the API.
 
@@ -68,7 +68,15 @@ The ui folder contains files and subfolders relevant to the UI.
 
 **MapDrawer** file which is a helper class for visualizing the path of the mower in the MapFragment.
 
+<h3>High level requirements</h3>
 
+#A1.1: The App shall take user input and translate this to drive commands passed to the Robot.
+
+This is done by sending HTTP requests and Bluetooth socket outputstream. For detailed description of tasks look at low level number requirements (LLNR) in process requirements below.
+
+#A1.2: The App shall visualize the path traveled by the Mower including collision avoidance events.
+
+The app can draw out the path by painting a canvas with coordinates it fetches from the backend, it also shows the image classification of collision objects. For detailed description of tasks look at low level number requirements (LLNR) in process requirements below.
 
 <h2>Process Requirements </h2>
 
