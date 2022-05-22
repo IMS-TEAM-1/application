@@ -44,6 +44,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         updateMowerLocation()
 
         binding.drawButton.setOnClickListener {
+            mowerCoordinates.clear()
             updateMowerLocation()
             val drawer = MapDrawer()
             mowerCoordinates.forEachIndexed { index, coordinates ->

@@ -21,7 +21,7 @@ class MapDrawer : Drawable() {
     private val drawerCoordinates = mutableListOf<Coordinates>()
     private val collisionObjectCoordinates = mutableListOf<Coordinates>()
     private val xOffset = 550F
-    private val yOffset = 900F
+    private val yOffset = 1100F
     private val xTextOffset = 70F
     private val yTextOffset = 50F
     private var scalingFactor = 10F
@@ -69,25 +69,24 @@ class MapDrawer : Drawable() {
             if (index == drawerCoordinates.size - 1) {
                 //Skip
             } else {
-                if (index == 0) {
-                    // First line start at x 550 and y 900
-                    canvas.drawLine(xOffset, yOffset, (drawerCoordinates[index].x * scalingFactor) + xOffset, (drawerCoordinates[index].y * scalingFactor) + yOffset, greenPaint)
-                } else {
-                    canvas.drawLine(
-                        (drawerCoordinates[index].x * scalingFactor) + xOffset,
-                        (drawerCoordinates[index].y * scalingFactor)+ yOffset,
+                Log.d("debug", "x index coord" + drawerCoordinates[index].x.toString())
+                Log.d("debug", "y index coord" + drawerCoordinates[index].y.toString())
+                Log.d("debug", "x index+1 coord" + drawerCoordinates[index+1].x.toString())
+                Log.d("debug", "y index+1 coord" + drawerCoordinates[index+1].y.toString())
+                canvas.drawLine(
+                    (drawerCoordinates[index].x * scalingFactor) + xOffset,
+                    (drawerCoordinates[index].y * scalingFactor)+ yOffset,
+                    (drawerCoordinates[index + 1].x * scalingFactor) + xOffset,
+                    (drawerCoordinates[index + 1].y * scalingFactor) + yOffset,
+                        redPaint)
+                if (drawerCoordinates[index + 1].classification != null) {
+                    canvas.drawPoint(
                         (drawerCoordinates[index + 1].x * scalingFactor) + xOffset,
                         (drawerCoordinates[index + 1].y * scalingFactor) + yOffset,
-                        redPaint)
-                    if (drawerCoordinates[index + 1].classification != null) {
-                        canvas.drawPoint(
-                            (drawerCoordinates[index + 1].x * scalingFactor) + xOffset,
-                            (drawerCoordinates[index + 1].y * scalingFactor) + yOffset,
-                            bluePaint)
-                        //Draw text last to prevent path blocking text.
-                        val collisionObject = Coordinates(drawerCoordinates[index + 1].x, drawerCoordinates[index + 1].y, drawerCoordinates[index + 1].classification)
-                        collisionObjectCoordinates.add(collisionObject)
-                    }
+                        bluePaint)
+                    //Draw text last to prevent path blocking text.
+                    val collisionObject = Coordinates(drawerCoordinates[index + 1].x, drawerCoordinates[index + 1].y, drawerCoordinates[index + 1].classification)
+                    collisionObjectCoordinates.add(collisionObject)
                 }
             }
         }
