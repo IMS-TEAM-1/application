@@ -70,13 +70,15 @@ remote are dataclasses which mimics json objects from the API.
 
 <h4>di</h4>
 
-TODO
+**NetworkModule** is used to setup all the packages for handling http requests. We setup Retrofit and OkHttp here.
+
+**RepositoryModule** is used to provide our ApiRepository.
+
+**AppModule** is not currently used as we are not actually handling any images in the application.
 
 <h4>ui</h4>
 
 The ui folder contains files and subfolders relevant to the UI.
-
-**databindings** TODO
 
 **fragments** folder contains all layouts that used on top of an activity.
 
