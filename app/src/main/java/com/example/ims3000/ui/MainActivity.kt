@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
     @Inject
     lateinit var glide: RequestManager
     var btConnectThread: BtThread? = null
+
+
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,25 +81,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             }
             true
         }
-        val btManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
-        val btAdapter: BluetoothAdapter? = btManager.adapter
-        if(btAdapter==null){
-            // Prevent btAdapter being null.
-        }
-        else{
-            if (!btAdapter.isEnabled){
-                val  btOn = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                startActivityForResult(btOn, REQUEST_ENABLE_BT)
-            }
-            else{
-                if (btConnectThread !=null && btConnectThread!!.isConnected()){
-                    return
-                }
-                val btDevice = btAdapter.getRemoteDevice(MACADRESS)
-                btConnectThread = BtThread(btDevice)
-                btConnectThread!!.run(btAdapter)
-            }
-        }
+
     }
 
     private fun makeCurrentFragment(fragment: Fragment) =
@@ -113,6 +97,31 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         private val myUUID = UUID.fromString("94f39d29-7d6d-437d-973b-fba39e49d4ee")
     }
 
+    @SuppressLint("MissingPermission")
+    fun startManual(){
+        val btManager:BluetoothManager = getSystemService(BluetoothManager::class.java)
+        val btAdapter:BluetoothAdapter = btManager.adapter
+        if(btAdapter==null){
+            // Prevent btAdapter being null.
+        }
+        else{
+            if (!btAdapter.isEnabled){
+                val  btOn = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                startActivityForResult(btOn, REQUEST_ENABLE_BT)
+            }
+            else{
+                if (btConnectThread !=null && btConnectThread!!.btSocket?.isConnected == true){
+                    Log.e("connect", "we are connected RETURN")
+
+                }else{
+                    val btDevice = btAdapter.getRemoteDevice(MACADRESS)
+                    btConnectThread = BtThread(btDevice)
+                    btConnectThread!!.run(btAdapter)
+                }
+
+            }
+        }
+    }
     fun writeToMower(data: Char){
 
         if (btConnectThread!=null && btConnectThread!!.isConnected()){
@@ -122,13 +131,29 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             Log.e("error", "Socket closed")
         }
     }
+    fun stopManual(){
+        try {
+            if(btConnectThread?.btSocket == null){
+                Log.e("Socket","PreventCrash")
+            }else{
+                btConnectThread!!.cancel()
+                Log.e("Socket","Closed")
+            }
+        }
+        catch (e:Exception){
+            //Error
+        }
+
+
+
+    }
 
     @SuppressLint("MissingPermission")
     inner class BtThread(btDevice: BluetoothDevice): Thread(){
         lateinit var inputStream : InputStream
         lateinit var outputStream : OutputStream
 
-        private val btSocket: BluetoothSocket? by lazy(LazyThreadSafetyMode.NONE){
+        val btSocket: BluetoothSocket? by lazy(LazyThreadSafetyMode.NONE){
             btDevice.createInsecureRfcommSocketToServiceRecord(myUUID)
         }
 
@@ -142,26 +167,33 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
                 btAdapter.cancelDiscovery()
 
                 btSocket.let { socket->
+
                     if (socket!=null){
                         Log.e("Connection","Connection to socket")
                         socket.connect()
-
                         if (socket.isConnected){
                             inputStream = socket.inputStream
                             outputStream = socket.outputStream
                         }
+
                     }
 
                 }
 
             } catch (e: IOException) {
-                //Error
+
                 Log.e("Socket Error", e.toString())
             }
         }
         fun cancel() {
             try {
-                btSocket?.close()
+                if (btSocket != null){
+                    btSocket!!.close()
+                }
+                else{
+                    Log.e("btSocket","btSocket is null")
+                }
+
             } catch (error: IOException) {
                 Log.e("ERROR", error.toString())
             }

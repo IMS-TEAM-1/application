@@ -112,10 +112,12 @@ class ControllerFragment : Fragment(R.layout.fragment_controller),EasyPermission
 
         binding.manualStart.setOnClickListener {
             viewModel.updateMowerStatusById(mowerId, MANUAL)
+            (activity as MainActivity?)?.startManual()
         }
 
         binding.manualStop.setOnClickListener {
             viewModel.updateMowerStatusById(mowerId, STANDBY)
+            (activity as MainActivity?)?.stopManual()
         }
 
     }
