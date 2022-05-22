@@ -32,11 +32,11 @@ class ControllerFragment : Fragment(R.layout.fragment_controller),EasyPermission
         private val STANDBY = MowerStatus("STANDBY")
         private val MANUAL = MowerStatus("MANUAL")
 
-        private val FORWARD = Char(1)
-        private val BACKWARD = Char(3)
-        private val RIGHT = Char(2)
-        private val LEFT = Char(4)
-        private val STOP = Char(0)
+        private val FORWARD = '1'
+        private val BACKWARD = '3'
+        private val RIGHT = '2'
+        private val LEFT = '4'
+        private val STOP = '0'
     }
 
     lateinit var viewModel: ControllerViewModel

@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         setContentView(R.layout.activity_main)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        requestPermissions()
         supportActionBar?.hide()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             Manifest.permission.ACCESS_COARSE_LOCATION
             Manifest.permission.ACCESS_FINE_LOCATION
             Manifest.permission.BLUETOOTH_CONNECT
+            Manifest.permission.BLUETOOTH_SCAN
             Manifest.permission.BLUETOOTH_ADMIN
             Manifest.permission.BLUETOOTH_ADVERTISE
             Manifest.permission.BLUETOOTH
@@ -187,6 +188,7 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
                 MainActivity.REQUEST_CODE_LOCATION_PERMISSION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.BLUETOOTH_SCAN,
                 Manifest.permission.BLUETOOTH_CONNECT,
                 Manifest.permission.BLUETOOTH_ADMIN,
                 Manifest.permission.BLUETOOTH_ADVERTISE,
