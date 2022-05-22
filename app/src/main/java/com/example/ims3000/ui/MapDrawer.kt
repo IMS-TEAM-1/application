@@ -9,6 +9,15 @@ import android.util.Log
 import com.example.ims3000.data.entities.Coordinates
 import kotlin.math.absoluteValue
 
+/*
+*
+*  Utility draw class that handles all drawing that is performed on the canvas, which is then put on as the view.
+*
+* This satisfies LLNR5.
+*
+ */
+
+
 class MapDrawer : Drawable() {
 
     private val redPaint: Paint = Paint().apply { setARGB(255, 255, 0, 0) }

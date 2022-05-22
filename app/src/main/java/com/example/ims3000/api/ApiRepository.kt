@@ -60,6 +60,14 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
         return Resource.Error(response.message())
     }
 
+    /*
+    *
+    *  This function establishes the Http request to the backend which allows us to update the status of the mower.
+    *
+    *  This satisfies LLNR3.
+    *
+     */
+
     suspend fun updateMowerStatusById(id: Int, status: MowerStatus): Resource<MowerStatus> {
         return mowerStatusUpdateResponse(apiInterface.updateMowerStatusById(id, status))
     }
@@ -71,6 +79,15 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
         }
         return Resource.Error(response.message())
     }
+
+    /*
+    *
+    *  This function is used to fetch location data.
+    *
+    *
+    *  This satisfies LLNR6.
+    *
+     */
 
     suspend fun getMowerLocationById(id: Int): Resource<List<MowerLocation>> {
         return getMowerLocationResponse(apiInterface.getMowerLocationById(id))

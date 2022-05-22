@@ -22,6 +22,15 @@ import javax.inject.Inject
 @HiltViewModel
 class MapViewModel @Inject constructor(private val apiRepository: ApiRepository): ViewModel() {
 
+    /*
+    *
+    *  This function is used to fetch location data.
+    *
+    *
+    *  This satisfies LLNR6.
+    *
+     */
+
     val getMowerLocation: MutableLiveData<Resource<List<MowerLocation>>> = MutableLiveData()
     fun getMowerLocation(id: Int) = viewModelScope.launch(Dispatchers.IO) {
         getMowerLocation.postValue(Resource.Loading())

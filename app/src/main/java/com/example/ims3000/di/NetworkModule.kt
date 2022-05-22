@@ -14,6 +14,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
+/*
+ *
+ * This file is the setup for our API structure. It creates the instances for Retrofit, OkHttp and GSON.
+ *
+ *
+ * This file satisfies LLNR1
+ */
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {

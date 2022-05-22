@@ -1,20 +1,33 @@
 # IMS 3000 Application
+Minimum
+- The app shall take user input and translate this to drive commands passed to the robot.
+- The app shall visualize the path travelled by the Mower including collision avoidance events.
+- The code shall be under version control.
+- There shall be a Software Design Description document where each source code component is described (Work in progress)
+- A basic Work Breakdown Strcture (WBS) shall be created for the intended scope of the project.
+- An analysis of the project shall be done (including process, technical aspects, collaboration and results) and documented in a Lessons Learned Document.
 
-- [ ] The app shall take user input and translate this to drive commands passed to the robot.
+Medium
+- The Software Design Description shall contain low level requirements linked to the high level requirements in as needed in order to implement the functionality.
+    LLNR = Low Level Number Requirement
+    - Application structure 3p
+    - LLNR1: ApiStructure 1p
+    - Application mock up 3p
+    - Create all views to mimick the UX design 8p
+    - LLNR2: Setup Bluetooth connection between application and Mower. 13p
+    - LLNR3: Fetch and set status to manual driving/standby/autonomous 3p
+    - LLNR4: Send commands to mower from the app through bluetooth 3p
+    - Visualize path from mower 13p
+    - LLNR5: Create utility draw class  13p
+    - LLNR6: Fetch location api requests 3p
+- Each Low level requirement or related software work package shall contain an estimate of how much work that is required for completion of the task. (We did this in Miro.)
+- The sum of all tasks and estimated efforts shall be compared with the time frame and resource availability of the project and planned accordingly. (Miro again)
+- Completion of tasks and used effort shall be compared with the plan and the estimates.
 
-- [x] The app shall visualize the path travelled by the Mower including collision avoidance events.
-
-- [x] The code shall be under version control.
-- [ ] There shall be a Software Design Description document where each source code component is described (Work in progress)
-- [ ] A basic Work Breakdown Strcture (WBS) shall be created for the intended scope of the project.
-- [ ] An analysis of the project shall be done (including process, technical aspects, collaboration and results) and documented in a Lessons Learned Document.
-- [ ] The Software Design Description shall contain low level requirements linked to the high level requirements in https://cdn.inst-fs-dub-prod.inscloudgate.net/af387127-3b2e-458d-a078-3d17ee2bbaf0/intelligenta_mobila_system_kravspec_2022.pdf?token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImNkbiJ9.eyJyZXNvdXJjZSI6Ii9hZjM4NzEyNy0zYjJlLTQ1OGQtYTA3OC0zZDE3ZWUyYmJhZjAvaW50ZWxsaWdlbnRhX21vYmlsYV9zeXN0ZW1fa3JhdnNwZWNfMjAyMi5wZGYiLCJ0ZW5hbnQiOiJjYW52YXMiLCJ1c2VyX2lkIjoiMTQ0NjgwMDAwMDAwMDA2NzYzIiwiaWF0IjoxNjUxNDM5ODE3LCJleHAiOjE2NTE1MjYyMTd9.2YioAHdh_69YnOI4GZ_pTmwP11INzZccmPxEP3K1nOuLe7Krwiv6Yzy4WEVvV0_IUOiG1U5fHB8YNWPO8U3VCQ&download=1&content_type=application%2Fpdf as needed in order to implement the functionality.
-- [x] Each Low level requirement or related software work package shall contain an estimate of how much work that is required for completion of the task. (We did this in Miro.)
-- [x] The sum of all tasks and estimated efforts shall be compared with the time frame and resource availability of the project and planned accordingly. (Miro again)
-- [x] Completion of tasks and used effort shall be compared with the plan and the estimates.
-- [ ] The software design document shall contain and architectural overview of the system and its sub components.
-- [ ] The source code shall be traceable to respective low level requirement.
-- [ ] Test cases shall be defined for all requirements and a test report produced.
+Maximum
+- The software design document shall contain and architectural overview of the system and its sub components.
+- The source code shall be traceable to respective low level requirement.
+- Test cases shall be defined for all requirements and a test report produced.
 
 
 

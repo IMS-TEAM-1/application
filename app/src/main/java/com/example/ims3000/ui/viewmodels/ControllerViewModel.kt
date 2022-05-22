@@ -33,6 +33,14 @@ class ControllerViewModel @Inject constructor(private val apiRepository: ApiRepo
     }
     */
 
+    /*
+    *
+    *  This function establishes the Http request to the backend which allows us to update the status of the mower.
+    *
+    *  This satisfies LLNR3.
+    *
+     */
+
     val mowerStatus: MutableLiveData<Resource<MowerStatus>> = MutableLiveData()
     fun updateMowerStatusById(id: Int, status: MowerStatus) = viewModelScope.launch(Dispatchers.IO) {
         mowerStatus.postValue(Resource.Loading())

@@ -32,6 +32,7 @@ import java.util.*
 import javax.inject.Inject
 
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
@@ -122,6 +123,14 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
             }
         }
     }
+
+    /*
+    *
+    *  Function that allows us to access the write() function in the thread.
+    *
+    *  This satisfies LLNR4.
+    *
+     */
     fun writeToMower(data: Char){
 
         if (btConnectThread!=null && btConnectThread!!.isConnected()){
@@ -148,6 +157,13 @@ class MainActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     }
 
+    /*
+    *
+    * This innerclass is used as a thread to instantiate Bluetooth connection. It uses a socket to connect to the mower
+    *
+    * This satisfies LLNR2.
+    *
+     */
     @SuppressLint("MissingPermission")
     inner class BtThread(btDevice: BluetoothDevice): Thread(){
         lateinit var inputStream : InputStream
